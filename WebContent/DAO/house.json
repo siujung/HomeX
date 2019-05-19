@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1000000,
+        "host": 10000,
+        "tenant": null,
+        "title": "A Cosy Apartment with 3 Rooms",
+        "address": "1 Rue Albert Camus, 92340 Bourg-la-Reine",
+        "constraint": {
+            "kid": "1 max",
+            "pet": "no"
+        },
+        "service": {
+            "clean": "true",
+            "other": "parking"
+        },
+        "isAvailable": false
+    },
+    {
+        "id": 1000001,
+        "host": 10000,
+        "tenant": null,
+        "title": "A Free House",
+        "address": "1 Rue Albert Camus, 92340 Bourg-la-Reine",
+        "constraint": {},
+        "service": {},
+        "isAvailable": true
+    }
+]
