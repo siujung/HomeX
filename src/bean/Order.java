@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +37,7 @@ public class Order {
     public static void delete(int id) throws MalformedURLException, IOException {
         ObjectMapper orderMapper = new ObjectMapper();
         ArrayNode orderNode = (ArrayNode) orderMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/order.json"));
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
 
         for (int orderCount = 0; orderCount < orderNode.size(); orderCount++) {
             if (orderNode.get(orderCount).path("id").asInt() == id) {
@@ -54,7 +53,8 @@ public class Order {
 
     public static Order get(int id) throws MalformedURLException, IOException, ParseException {
         ObjectMapper orderMapper = new ObjectMapper();
-        JsonNode orderNode = orderMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/order.json"));
+        JsonNode orderNode = orderMapper
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
         Order newOrder = new Order();
 
         for (JsonNode order : orderNode) {
@@ -94,7 +94,8 @@ public class Order {
 
     public static Map<Integer, Order> getAll() throws MalformedURLException, IOException, ParseException {
         ObjectMapper orderMapper = new ObjectMapper();
-        JsonNode orderNode = orderMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/order.json"));
+        JsonNode orderNode = orderMapper
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
         Map<Integer, Order> orderMap = new HashMap<>();
 
         for (JsonNode order : orderNode) {
@@ -107,14 +108,13 @@ public class Order {
     }
 
     public static void set(Order order) throws MalformedURLException, IOException {
+        File orderFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json");
         JsonFactory orderFactory = new JsonFactory();
         JsonNodeFactory orderNodeFactory = new JsonNodeFactory(false);
-        JsonGenerator orderGenerator = orderFactory.createGenerator(
-                new FileWriter(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json")));
         ObjectMapper orderMapper = new ObjectMapper();
         ObjectNode newOrderNode = orderNodeFactory.objectNode();
-        ArrayNode orderNode = (ArrayNode) orderMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/order.json"));
+        ArrayNode orderNode = (ArrayNode) orderMapper.readTree(orderFile);
+        JsonGenerator orderGenerator = orderFactory.createGenerator(new FileWriter(orderFile));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         for (int orderCount = 0; orderCount < orderNode.size(); orderCount++) {

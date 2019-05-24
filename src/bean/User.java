@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,7 +51,7 @@ public class User {
     public static void delete(int id) throws MalformedURLException, IOException {
         ObjectMapper userMapper = new ObjectMapper();
         ArrayNode userNode = (ArrayNode) userMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/user.json"));
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
 
         for (int userCount = 0; userCount < userNode.size(); userCount++) {
             if (userNode.get(userCount).path("id").asInt() == id) {
@@ -68,7 +67,7 @@ public class User {
 
     public static User get(int id) throws MalformedURLException, IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
         User newUser = new User();
 
         for (JsonNode user : userNode) {
@@ -85,7 +84,7 @@ public class User {
     // else return null;
     public static User get(String username, String password) throws MalformedURLException, IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
 
         User newUser = new User();
 
@@ -145,7 +144,7 @@ public class User {
 
     public static Map<Integer, User> getAll() throws MalformedURLException, IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
         Map<Integer, User> userMap = new HashMap<>();
 
         for (JsonNode user : userNode) {
@@ -157,19 +156,15 @@ public class User {
         return userMap;
     }
 
-    // set(User) only replace the local file
-    // The json file on the server should also be replaced
-    // A restart of the server may need to be executed
     public static void set(User user) throws MalformedURLException, IOException {
+        File userFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json");
         JsonFactory userFactory = new JsonFactory();
         JsonNodeFactory userNodeFactory = new JsonNodeFactory(false);
-        JsonGenerator userGenerator = userFactory.createGenerator(
-                new FileWriter(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json")));
         ObjectMapper userMapper = new ObjectMapper();
         ObjectNode newUserNode = userNodeFactory.objectNode();
-        ArrayNode userNode = (ArrayNode) userMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/user.json"));
+        ArrayNode userNode = (ArrayNode) userMapper.readTree(userFile);
         ArrayNode houseNode = userNodeFactory.arrayNode();
+        JsonGenerator userGenerator = userFactory.createGenerator(new FileWriter(userFile));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         for (int userCount = 0; userCount < userNode.size(); userCount++) {

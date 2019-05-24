@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -42,7 +41,7 @@ public class Message {
     public static void delete(Message message) throws MalformedURLException, IOException {
         ObjectMapper messageMapper = new ObjectMapper();
         ArrayNode messageNode = (ArrayNode) messageMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/message.json"));
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json"));
 
         for (int messageCount = 0; messageCount < messageNode.size(); messageCount++) {
             if (messageNode.get(messageCount).path("from").asInt() == message.from
@@ -62,7 +61,7 @@ public class Message {
     public static List<Message> get(int from, int to, boolean is2Way) throws MalformedURLException, IOException {
         ObjectMapper messageMapper = new ObjectMapper();
         JsonNode messageNode = messageMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/message.json"));
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json"));
         List<Message> newMessage = new ArrayList<>();
         MessageComparator messageComparator = new MessageComparator();
 
@@ -94,14 +93,13 @@ public class Message {
     }
 
     public static void set(Message message) throws MalformedURLException, IOException {
+        File messageFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json");
         JsonFactory messageFactory = new JsonFactory();
         JsonNodeFactory messageNodeFactory = new JsonNodeFactory(false);
-        JsonGenerator messageGenerator = messageFactory.createGenerator(
-                new FileWriter(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json")));
         ObjectMapper messageMapper = new ObjectMapper();
         ObjectNode newMessageNode = messageNodeFactory.objectNode();
-        ArrayNode messageNode = (ArrayNode) messageMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/message.json"));
+        ArrayNode messageNode = (ArrayNode) messageMapper.readTree(messageFile);
+        JsonGenerator messageGenerator = messageFactory.createGenerator(new FileWriter(messageFile));
 
         newMessageNode.put("from", message.from);
         newMessageNode.put("to", message.to);

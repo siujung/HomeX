@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,7 +46,7 @@ public class House {
     public static void delete(int id) throws MalformedURLException, IOException {
         ObjectMapper houseMapper = new ObjectMapper();
         ArrayNode houseNode = (ArrayNode) houseMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/house.json"));
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
 
         for (int houseCount = 0; houseCount < houseNode.size(); houseCount++) {
             if (houseNode.get(houseCount).path("id").asInt() == id) {
@@ -63,7 +62,8 @@ public class House {
 
     public static House get(int id) throws MalformedURLException, IOException, ParseException {
         ObjectMapper houseMapper = new ObjectMapper();
-        JsonNode houseNode = houseMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/house.json"));
+        JsonNode houseNode = houseMapper
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
         House newHouse = new House();
 
         for (JsonNode house : houseNode) {
@@ -136,7 +136,8 @@ public class House {
 
     public static Map<Integer, House> getAll() throws MalformedURLException, IOException {
         ObjectMapper houseMapper = new ObjectMapper();
-        JsonNode houseNode = houseMapper.readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/house.json"));
+        JsonNode houseNode = houseMapper
+                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
         Map<Integer, House> houseMap = new HashMap<>();
 
         for (JsonNode house : houseNode) {
@@ -149,16 +150,15 @@ public class House {
     }
 
     public static void set(House house) throws MalformedURLException, IOException {
+        File houseFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json");
         JsonFactory houseFactory = new JsonFactory();
         JsonNodeFactory houseNodeFactory = new JsonNodeFactory(false);
-        JsonGenerator houseGenerator = houseFactory.createGenerator(
-                new FileWriter(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json")));
         ObjectMapper houseMapper = new ObjectMapper();
         ObjectNode newHouseNode = houseNodeFactory.objectNode();
         ObjectNode newConstraintNode = houseNodeFactory.objectNode();
         ObjectNode newServiceNode = houseNodeFactory.objectNode();
-        ArrayNode houseNode = (ArrayNode) houseMapper
-                .readTree(new URL("http://localhost:8086/HouseExchangeManager/DAO/house.json"));
+        ArrayNode houseNode = (ArrayNode) houseMapper.readTree(houseFile);
+        JsonGenerator houseGenerator = houseFactory.createGenerator(new FileWriter(houseFile));
 
         for (int houseCount = 0; houseCount < houseNode.size(); houseCount++) {
             if (houseNode.get(houseCount).path("id").asInt() == house.id) {
