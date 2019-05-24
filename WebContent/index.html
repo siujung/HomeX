@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colrolib Templates">
+    <meta name="author" content="colorlib.com">
+    <meta name="keywords" content="Colrolib Templates">
+
+    <!-- Title Page-->
+    <title>Au Form Wizard</title>
+
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+    <link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(function(){
+            $("#header").load("navbar.html");
+        });
+    </script>
+</head>
+
+<div id="header"></div>
+
+<body>
+    <div class="page-wrapper bg-color-1 p-t-395 p-b-120">
+        <div class="wrapper wrapper--w1070">
+            <div class="card card-7">
+                <div class="card-body">
+                    <form class="form" method="POST" action="#">
+                        <div class="input-group input--large">
+                            <label class="label">Name of Property</label>
+                            <input class="input--style-1" type="text" placeholder="Property" name="property">
+                        </div>
+                        <div class="input-group input--medium">
+                            <label class="label">Check-In</label>
+                            <input class="input--style-1" type="text" name="checkin" placeholder="mm/dd/yyyy" id="input-start">
+                        </div>
+                        <div class="input-group input--medium">
+                            <label class="label">Check-Out</label>
+                            <input class="input--style-1" type="text" name="checkout" placeholder="mm/dd/yyyy" id="input-end">
+                        </div>
+                        <div class="input-group input--medium">
+                            <label class="label">guests</label>
+                            <div class="input-group-icon js-number-input">
+                                <div class="icon-con">
+                                    <span class="plus">+</span>
+                                    <span class="minus">-</span>
+                                </div>
+                                <input class="input--style-1 quantity" type="text" name="guests" value="2 Guests">
+                            </div>
+                        </div>
+                        <button class="btn-submit" type="submit">search</button>
+
+                        <div class="container">
+                            <h3>Custom Checkbox <i class="fa fa-check"></i> </h3>
+                            <div class="control-group">
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check1"/>
+                                    <label for="check1">
+                                        <div><i class="fa fa-check"></i></div> I like Codepen!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check2"/>
+                                    <label for="check2">
+                                        <div><i class="fa fa-check"></i></div> I'm a designer
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check3"/>
+                                    <label for="check3">
+                                        <div><i class="fa fa-check"></i></div> I shouldn't be looking at this right now
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check4"/>
+                                    <label for="check4">
+                                        <div><i class="fa fa-check"></i></div> Pasta is my favourite food
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check5"/>
+                                    <label for="check5">
+                                        <div><i class="fa fa-check"></i></div> This Pen sucks!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check6"/>
+                                    <label for="check6">
+                                        <div><i class="fa fa-check"></i></div> I already knew how to create custom checkboxes
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check7"/>
+                                    <label for="check7">
+                                        <div><i class="fa fa-check"></i></div> I thought it was harder
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check8"/>
+                                    <label for="check8">
+                                        <div><i class="fa fa-check"></i></div> I'm aware that no JavaScript is required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <h3>Custom Checkbox <i class="fa fa-check"></i> </h3>
+                            <div class="control-group">
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check9"/>
+                                    <label for="check9">
+                                        <div><i class="fa fa-check"></i></div> I like Codepen!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check10"/>
+                                    <label for="check10">
+                                        <div><i class="fa fa-check"></i></div> I'm a designer
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check11"/>
+                                    <label for="check11">
+                                        <div><i class="fa fa-check"></i></div> I shouldn't be looking at this right now
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check12"/>
+                                    <label for="check12">
+                                        <div><i class="fa fa-check"></i></div> Pasta is my favourite food
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check13"/>
+                                    <label for="check13">
+                                        <div><i class="fa fa-check"></i></div> This Pen sucks!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check14"/>
+                                    <label for="check14">
+                                        <div><i class="fa fa-check"></i></div> I already knew how to create custom checkboxes
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check15"/>
+                                    <label for="check15">
+                                        <div><i class="fa fa-check"></i></div> I thought it was harder
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check16"/>
+                                    <label for="check16">
+                                        <div><i class="fa fa-check"></i></div> I'm aware that no JavaScript is required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <h3>Custom Checkbox <i class="fa fa-check"></i> </h3>
+                            <div class="control-group">
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check117"/>
+                                    <label for="check117">
+                                        <div><i class="fa fa-check"></i></div> I like Codepen!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check18"/>
+                                    <label for="check18">
+                                        <div><i class="fa fa-check"></i></div> I'm a designer
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check19"/>
+                                    <label for="check19">
+                                        <div><i class="fa fa-check"></i></div> I shouldn't be looking at this right now
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check20"/>
+                                    <label for="check20">
+                                        <div><i class="fa fa-check"></i></div> Pasta is my favourite food
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check21"/>
+                                    <label for="check21">
+                                        <div><i class="fa fa-check"></i></div> This Pen sucks!
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check22"/>
+                                    <label for="check22">
+                                        <div><i class="fa fa-check"></i></div> I already knew how to create custom checkboxes
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check23"/>
+                                    <label for="check23">
+                                        <div><i class="fa fa-check"></i></div> I thought it was harder
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <input class="input-check" type="checkbox" id="check24"/>
+                                    <label for="check24">
+                                        <div><i class="fa fa-check"></i></div> I'm aware that no JavaScript is required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/jquery-validate/jquery.validate.min.js"></script>
+    <script src="vendor/bootstrap-wizard/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
