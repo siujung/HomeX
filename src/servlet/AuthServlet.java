@@ -11,10 +11,10 @@ import Authentication.java;
 import Administrator.java;
 
 /**
- * Servlet implementation class AuthServlet
+ * Servlet implementation class NewServlet
  */
 @WebServlet("/AuthServlet")
-public class AuthServlet extends HttpServlet {
+public class NewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     static Authentication authentication;
@@ -41,8 +41,8 @@ public class AuthServlet extends HttpServlet {
         authentication = new Authentication();
         boolean loginSuccess = authentication.isAuthentic(username, password);
 
-        if(loginSuccess){
-            if(authentication.getUser().isAdministrator()){
+        if(loginSuccess){ //if login is successful
+            if(authentication.getUser().isAdministrator()){ //if user is administrator
                 Set<Authority> authority = new Set<Authority>();
                 authority.add(Authority.house);
                 authority.add(Authority.order);
@@ -51,12 +51,13 @@ public class AuthServlet extends HttpServlet {
 
                 administrator = new Administrator(authority);
             }
-            else {
+            else { //if user is not administrator
                 Set<Authority> authority = new Set<Authority>();
                 authority.add(Authority.none);
 
                 administrator = new Administrator(authority);
             }
+            //session.setAttribute("loginedUser", authentication.getUser());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/welcome.jsp");
             //Must change to appropriate jsp page upon successful login
             dispatcher.include(request, response);
