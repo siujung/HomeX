@@ -11,10 +11,10 @@ import Authentication.java;
 import Administrator.java;
 
 /**
- * Servlet implementation class NewServlet
+ * Servlet implementation class AuthServlet
  */
 @WebServlet("/AuthServlet")
-public class NewServlet extends HttpServlet {
+public class AuthServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     static Authentication authentication;
@@ -23,7 +23,7 @@ public class NewServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewServlet() {
+    public AuthServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
