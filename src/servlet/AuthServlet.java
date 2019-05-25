@@ -6,19 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Authentication.java;
-import Administrator.java;
+import control.*;
+import bean.*;
 
 /**
- * Servlet implementation class NewServlet
+ * Servlet implementation class AuthServlet
  */
 @WebServlet("/AuthServlet")
-public class NewServlet extends HttpServlet {
+public class AuthServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    static Authentication authentication;
-    static Administrator administrator;
+    public static Authentication authentication;
+    public static Administrator administrator;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,14 +58,17 @@ public class NewServlet extends HttpServlet {
 
                 administrator = new Administrator(authority);
             }
-            //session.setAttribute("loginedUser", authentication.getUser());
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/welcome.jsp");
-            //Must change to appropriate jsp page upon successful login
+            HttpSession session = request.getSession();
+            session.setAttribute("authentication", authentication);
+            session.setAttribute("administrator", administrator);
+            response.sendRedirect(request.getContextPath() + "/profile.jsp");
             dispatcher.include(request, response);
         }
         else {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginFailed.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
             //Must change to appropriate jsp page upon unsuccessful login
+            //Or send message such as:
+            //  login fail: username and password incorrect
             dispatcher.include(request, response);
         }
     }
@@ -74,7 +78,7 @@ public class NewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
 	}
 
 }

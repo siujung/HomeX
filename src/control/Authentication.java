@@ -25,7 +25,8 @@ public class Authentication {
 
     public static boolean isAuthentic(String username, String password)
             throws MalformedURLException, IOException, ParseException {
-        if (User.get(username, password).equals(null))
+        setUser(User.get(username, password));
+        if (this.user.equals(null))
             return false;
         else
             return true;
@@ -36,5 +37,20 @@ public class Authentication {
             return false;
         else
             return true;
+    }
+
+    public boolean isLoggedIn(){
+        if(this.user.equals(null)){
+            return false;
+        }
+        else return true;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public User getUser(){
+        return this.user;
     }
 }

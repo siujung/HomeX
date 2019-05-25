@@ -12,16 +12,16 @@ import control.*;
 import bean.*;
 
 /**
- * Servlet implementation class ProfileServlet
+ * Servlet implementation class EditHouseServlet
  */
-@WebServlet("/ProfileServlet")
-public class ProfileServlet extends HttpServlet {
+@WebServlet("/EditHouseServlet")
+public class EditHouseServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfileServlet() {
+    public EditHouseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,11 +37,25 @@ public class ProfileServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.senRedirect(request.getContextPath() + "/login");
+            //Must change redirect page to proper login page name
             return;
         }
 
+        String houseId = (String)request.getParameter("houseId");
+        int id = Int.parseInt(houseId);
+
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
+        House house = administrator.getHouse(id);
+        
+        if(house != null){
+            response.sendRedirect(request.ServletPath() + "/view.property.jsp")
+            return;
+        }
+
+        request.setAttribute("houseId", id);
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
+        //Must change profile view page name
         dispatcher.forward(request, response);
     }
 
@@ -50,33 +64,40 @@ public class ProfileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        //doGet(request, response);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthdate = dateFormat.parse((String)request.getParameter("birthdate"));
-        
-        String strSex = (String)request.getParameter("sex");
-        Sex sex;
-        if(strSex.equals("male")){
-            sex = Sex.male;
-        }
-        else if(strSex.equals("female")){
-            sex = Sex.female;
-        }
-        else sex = Sex.other;
+        //doGet(request, response);        
 
-        String email = (String)request.getParameter("email");
-        String telephone = (String)request.getParameter("telephone");
+        String houseId = (String)request.getParameter("houseId");
+        int id = Int.parseInt(houseId);
+
+        String available = (String)request.getParameter("available");
+        boolean isAvailable;
+        if(available.equals("Y")){
+            isAvailable = true;
+        }
+        else {
+            isAvailable = false;
+        }
+
+        //Way to get Constraints and Services
+
+        String address = (String)request.getParameter("address");
+        String title = (String)request.getParameter("title");
 
         HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         User user = authentication.getUser();
+        
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
+        //Problem with data structure?
+        //Maybe it will be easier if every user has a field through which he can access his houses
 
-        user.setBirthdate(birthdate);
-        user.setSex(sex);
-        user.setEmail(email);
-        user.setTelephone(telephone);
+        House house = administrator.getHouse(id);
 
-        User.set(user);
+        house.setAvailable(isAvailable);
+        house.setAddress(address);
+        house.setTitle(title);
+
+        House.set(house);
 
         response.sendRedirect(request.getContextPath() + "/profile.jsp");
 	}
