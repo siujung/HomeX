@@ -3,7 +3,9 @@ package control;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import bean.House;
 import bean.Order;
@@ -55,6 +57,83 @@ public class Administrator {
             return house.get(id);
         else
             return null;
+    }
+
+    // Default pattern
+    // All fields not specified
+    // isAvailable = false;
+    // host = 0;
+    // id = 0;
+    // tenant = 0;
+    // constraint = null;
+    // service = null;
+    // address = null;
+    // title = null;
+    public Set<House> getHouse(House pattern) {
+        Set<House> match = new HashSet<>();
+
+        if (authority.getHouse().get(Type.get).equals(Range.all)) {
+            if (pattern.getId() != 0) {
+                match.add(getHouse(pattern.getId()));
+
+                return match;
+            }
+
+            match.addAll(house.values());
+            for (House search : house.values()) {
+                Set<House.Constraint> constraint = pattern.getConstraint().keySet();
+                Set<House.Service> service = pattern.getService().keySet();
+
+                if (pattern.isAvailable() == false || pattern.isAvailable() == search.isAvailable()) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (pattern.getAddress() == null || pattern.getAddress().contains(search.getAddress())) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (constraint == null || constraint.containsAll(search.getConstraint().keySet())) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (service == null || service.containsAll(search.getService().keySet())) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (pattern.getHost() == 0 || pattern.getHost() == search.getHost()) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (pattern.getTenant() == 0 || pattern.getTenant() == search.getTenant()) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+                if (pattern.getTitle() == null || search.getTitle().contains(pattern.getTitle())) {
+                    match.add(search);
+                } else {
+                    match.remove(search);
+                    continue;
+                }
+            }
+
+            return match;
+        } else {
+            match = null;
+
+            return match;
+        }
     }
 
     public Order getOrder(int id) {
