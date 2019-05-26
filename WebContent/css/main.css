@@ -283,9 +283,6 @@ a:active {
 /* ==========================================================================
    #BACKGROUND
    ========================================================================== */
-.bg-img-3 {
-  background: url("../images/bg-img-03.jpg") center center/cover no-repeat;
-}
 
 .bg-color-1 {
   background: #ffece0;
