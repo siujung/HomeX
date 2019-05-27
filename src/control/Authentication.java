@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 
 import bean.User;
@@ -19,12 +18,11 @@ public class Authentication {
     // the function of authentication can be realized using
     // User.get(username, password)
     // which will return null if is not authentic
-    public Authentication(String username, String password) throws MalformedURLException, IOException, ParseException {
+    public Authentication(String username, String password) throws IOException, ParseException {
         this.user = User.get(username, password);
     }
 
-    public static boolean isAuthentic(String username, String password)
-            throws MalformedURLException, IOException, ParseException {
+    public static boolean isAuthentic(String username, String password) throws IOException, ParseException {
         setUser(User.get(username, password));
         if (this.user.equals(null))
             return false;
@@ -39,18 +37,18 @@ public class Authentication {
             return true;
     }
 
-    public boolean isLoggedIn(){
-        if(this.user.equals(null)){
+    public boolean isLoggedIn() {
+        if (this.user.equals(null)) {
             return false;
-        }
-        else return true;
+        } else
+            return true;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public User getUser(){
+    public User getUser() {
         return this.user;
     }
 }

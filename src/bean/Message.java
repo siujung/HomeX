@@ -3,7 +3,6 @@ package bean;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,10 +37,12 @@ public class Message {
         }
     }
 
-    public static void delete(Message message) throws MalformedURLException, IOException {
+    public static void delete(Message message) throws IOException {
+        File messageFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json");
+        JsonFactory messageFactory = new JsonFactory();
         ObjectMapper messageMapper = new ObjectMapper();
-        ArrayNode messageNode = (ArrayNode) messageMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json"));
+        ArrayNode messageNode = (ArrayNode) messageMapper.readTree(messageFile);
+        JsonGenerator messageGenerator = messageFactory.createGenerator(new FileWriter(messageFile));
 
         for (int messageCount = 0; messageCount < messageNode.size(); messageCount++) {
             if (messageNode.get(messageCount).path("from").asInt() == message.from
@@ -52,13 +53,15 @@ public class Message {
                 break;
             }
         }
+        messageMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        messageMapper.writeTree(messageGenerator, messageNode);
     }
 
-    public void delete() throws MalformedURLException, IOException {
+    public void delete() throws IOException {
         delete(this);
     }
 
-    public static List<Message> get(int from, int to, boolean is2Way) throws MalformedURLException, IOException {
+    public static List<Message> get(int from, int to, boolean is2Way) throws IOException {
         ObjectMapper messageMapper = new ObjectMapper();
         JsonNode messageNode = messageMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json"));
@@ -77,7 +80,7 @@ public class Message {
         return newMessage;
     }
 
-    public static List<Message> get(int user1, int user2) throws MalformedURLException, IOException {
+    public static List<Message> get(int user1, int user2) throws IOException {
         return get(user1, user2, true);
     }
 
@@ -92,7 +95,7 @@ public class Message {
         return newMessage;
     }
 
-    public static void set(Message message) throws MalformedURLException, IOException {
+    public static void set(Message message) throws IOException {
         File messageFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json");
         JsonFactory messageFactory = new JsonFactory();
         JsonNodeFactory messageNodeFactory = new JsonNodeFactory(false);
@@ -110,7 +113,7 @@ public class Message {
         messageMapper.writeTree(messageGenerator, messageNode);
     }
 
-    public void set() throws MalformedURLException, IOException {
+    public void set() throws IOException {
         set(this);
     }
 

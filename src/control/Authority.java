@@ -17,7 +17,7 @@ public class Authority {
     }
 
     public static enum Range {
-        none, self, frined, all
+        none, self, friend, all
     }
 
     public static enum Role {

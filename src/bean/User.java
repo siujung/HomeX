@@ -3,7 +3,6 @@ package bean;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,10 +47,12 @@ public class User {
         setPassword(password);
     }
 
-    public static void delete(int id) throws MalformedURLException, IOException {
+    public static void delete(int id) throws IOException {
+        File userFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json");
+        JsonFactory userFactory = new JsonFactory();
         ObjectMapper userMapper = new ObjectMapper();
-        ArrayNode userNode = (ArrayNode) userMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        ArrayNode userNode = (ArrayNode) userMapper.readTree(userFile);
+        JsonGenerator userGenerator = userFactory.createGenerator(new FileWriter(userFile));
 
         for (int userCount = 0; userCount < userNode.size(); userCount++) {
             if (userNode.get(userCount).path("id").asInt() == id) {
@@ -59,13 +60,15 @@ public class User {
                 break;
             }
         }
+        userMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        userMapper.writeTree(userGenerator, userNode);
     }
 
-    public void delete() throws MalformedURLException, IOException {
+    public void delete() throws IOException {
         delete(this.id);
     }
 
-    public static User get(int id) throws MalformedURLException, IOException, ParseException {
+    public static User get(int id) throws IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
         User newUser = new User();
@@ -82,7 +85,7 @@ public class User {
 
     // if(isAuthentic) return User;
     // else return null;
-    public static User get(String username, String password) throws MalformedURLException, IOException, ParseException {
+    public static User get(String username, String password) throws IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
 
@@ -142,7 +145,7 @@ public class User {
         return newUser;
     }
 
-    public static Map<Integer, User> getAll() throws MalformedURLException, IOException, ParseException {
+    public static Map<Integer, User> getAll() throws IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
         Map<Integer, User> userMap = new HashMap<>();
@@ -156,7 +159,7 @@ public class User {
         return userMap;
     }
 
-    public static void set(User user) throws MalformedURLException, IOException {
+    public static void set(User user) throws IOException {
         File userFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json");
         JsonFactory userFactory = new JsonFactory();
         JsonNodeFactory userNodeFactory = new JsonNodeFactory(false);
@@ -213,7 +216,7 @@ public class User {
         userMapper.writeTree(userGenerator, userNode);
     }
 
-    public void set() throws MalformedURLException, IOException {
+    public void set() throws IOException {
         set(this);
     }
 

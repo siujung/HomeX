@@ -34,7 +34,7 @@ public class SearchServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {	
+			throws ServletException, IOException {
 		String redirect = Manage.getCookie(request, "Redirect").getValue();
 		String role = Manage.getCookie(request, "Role").getValue();
 		Administrator administrator = null;
@@ -44,15 +44,15 @@ public class SearchServlet extends HttpServlet {
 			switch (role) {
 			default:
 			case "none":
-				administrator = new Administrator(new Authority(Authority.Role.none));
+				administrator = new Administrator(Authority.Role.none);
 				break;
 			case "visitor":
-				administrator = new Administrator(new Authority(Authority.Role.visitor));
+				administrator = new Administrator(Authority.Role.visitor);
 			case "user":
-				administrator = new Administrator(new Authority(Authority.Role.user));
+				administrator = new Administrator(Authority.Role.user);
 				break;
 			case "administrator":
-				administrator = new Administrator(new Authority(Authority.Role.administrator));
+				administrator = new Administrator(Authority.Role.administrator);
 				break;
 			}
 		} catch (ParseException exception) {

@@ -1,14 +1,13 @@
 package bean;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
 public class Main {
 
-	public static void main(String[] args) throws MalformedURLException, IOException, ParseException {
+	public static void main(String[] args) throws IOException, ParseException {
 		Message message = new Message(new Timestamp(System.currentTimeMillis()));
 		message.setFrom(10000);
 		message.setTo(10001);

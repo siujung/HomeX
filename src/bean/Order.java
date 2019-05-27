@@ -3,7 +3,6 @@ package bean;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,10 +33,12 @@ public class Order {
         setId(id);
     }
 
-    public static void delete(int id) throws MalformedURLException, IOException {
+    public static void delete(int id) throws IOException {
+        File orderFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json");
+        JsonFactory orderFactory = new JsonFactory();
         ObjectMapper orderMapper = new ObjectMapper();
-        ArrayNode orderNode = (ArrayNode) orderMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
+        ArrayNode orderNode = (ArrayNode) orderMapper.readTree(orderFile);
+        JsonGenerator orderGenerator = orderFactory.createGenerator(new FileWriter(orderFile));
 
         for (int orderCount = 0; orderCount < orderNode.size(); orderCount++) {
             if (orderNode.get(orderCount).path("id").asInt() == id) {
@@ -45,13 +46,15 @@ public class Order {
                 break;
             }
         }
+        orderMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        orderMapper.writeTree(orderGenerator, orderNode);
     }
 
-    public void delete() throws MalformedURLException, IOException {
+    public void delete() throws IOException {
         delete(this.id);
     }
 
-    public static Order get(int id) throws MalformedURLException, IOException, ParseException {
+    public static Order get(int id) throws IOException, ParseException {
         ObjectMapper orderMapper = new ObjectMapper();
         JsonNode orderNode = orderMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
@@ -92,7 +95,7 @@ public class Order {
         return newOrder;
     }
 
-    public static Map<Integer, Order> getAll() throws MalformedURLException, IOException, ParseException {
+    public static Map<Integer, Order> getAll() throws IOException, ParseException {
         ObjectMapper orderMapper = new ObjectMapper();
         JsonNode orderNode = orderMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
@@ -107,7 +110,7 @@ public class Order {
         return orderMap;
     }
 
-    public static void set(Order order) throws MalformedURLException, IOException {
+    public static void set(Order order) throws IOException {
         File orderFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json");
         JsonFactory orderFactory = new JsonFactory();
         JsonNodeFactory orderNodeFactory = new JsonNodeFactory(false);
@@ -142,7 +145,7 @@ public class Order {
         orderMapper.writeTree(orderGenerator, orderNode);
     }
 
-    public void set() throws MalformedURLException, IOException {
+    public void set() throws IOException {
         set(this);
     }
 
