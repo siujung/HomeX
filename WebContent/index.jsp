@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="cookie.Manage, java.net.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +13,7 @@
 <meta name="keywords" content="Colrolib Templates">
 
 <!-- Title Page-->
-<title>Main</title>
+<title>HomeX</title>
 
 <!-- Icons font CSS-->
 <link href="vendor/mdi-font/css/material-design-iconic-font.min.css"
@@ -55,10 +55,16 @@
 			<div class="card card-7">
 				<div class="card-body">
 					<form class="form" method="POST" action="SearchServlet">
+						<%
+							Cookie cRedirect = Manage.getCookie(request, "Redirect");
+							if (null == cRedirect) {
+								Manage.setCookie(request, response, "Redirect", "houseList");
+								Manage.setCookie(request, response, "Role", "visitor");
+							}
+						%>
 						<div class="input-group input--large">
-							<label class="label">Name of Property</label> <input
-								class="input--style-1" type="text" placeholder="Property"
-								name="property">
+							<label class="label">Title</label> <input class="input--style-1"
+								type="text" placeholder="Property" name="property">
 						</div>
 						<div class="input-group input--medium">
 							<label class="label">Check-In</label> <input
@@ -81,11 +87,6 @@
 							</div>
 						</div>
 						<button class="btn-submit" type="submit">Search</button>
-
-						<%
-							request.setAttribute("redirect", "houseList");
-							request.setAttribute("role", "visitor");
-						%>
 
 						<div class="container">
 							<h3>

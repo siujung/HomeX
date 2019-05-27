@@ -18,6 +18,7 @@ import bean.House.Constraint;
 import bean.House.Service;
 import control.Administrator;
 import control.Authority;
+import cookie.Manage;
 
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
@@ -33,11 +34,11 @@ public class SearchServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String redirect = (String) request.getAttribute("redirect");
-		String role = (String) request.getAttribute("role");
+			throws ServletException, IOException {	
+		String redirect = Manage.getCookie(request, "Redirect").getValue();
+		String role = Manage.getCookie(request, "Role").getValue();
 		Administrator administrator = null;
-		String NextPage = "/index.html";
+		String NextPage = "/index.jsp";
 
 		try {
 			switch (role) {
