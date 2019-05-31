@@ -24,7 +24,12 @@ public class Message {
     private Timestamp time;
 
     public Message() {
-        this(new Timestamp(System.currentTimeMillis()));
+    }
+
+    public Message(boolean isNew) {
+        if (isNew) {
+            setTime(new Timestamp(System.currentTimeMillis()));
+        }
     }
 
     public Message(Timestamp timestamp) {
@@ -86,7 +91,7 @@ public class Message {
     }
 
     public static Message get(JsonNode message) {
-        Message newMessage = new Message(null);
+        Message newMessage = new Message();
 
         newMessage.content = message.path("content").textValue();
         newMessage.from = message.path("from").asInt();

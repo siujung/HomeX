@@ -30,9 +30,15 @@ public class Order {
     private Date end;
 
     public Order() throws IOException, ParseException {
-        Set<Integer> idSet = new TreeSet<>();
-        idSet.addAll(getAll().keySet());
-        setId(Collections.max(idSet) + 1);
+    }
+
+    public Order(boolean isNew) throws IOException, ParseException {
+        if (isNew) {
+            Set<Integer> idSet = new TreeSet<>();
+
+            idSet.addAll(getAll().keySet());
+            setId(Collections.max(idSet) + 1);
+        }
     }
 
     public Order(int id) {
@@ -64,7 +70,7 @@ public class Order {
         ObjectMapper orderMapper = new ObjectMapper();
         JsonNode orderNode = orderMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
-        Order newOrder = new Order(0);
+        Order newOrder = new Order();
 
         for (JsonNode order : orderNode) {
             if (order.path("id").asInt() == id) {
@@ -77,7 +83,7 @@ public class Order {
     }
 
     public static Order get(JsonNode order) throws ParseException, IOException {
-        Order newOrder = new Order(0);
+        Order newOrder = new Order();
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

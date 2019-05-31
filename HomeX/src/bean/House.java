@@ -39,9 +39,15 @@ public class House {
     }
 
     public House() throws IOException {
-        Set<Integer> idSet = new TreeSet<>();
-        idSet.addAll(getAll().keySet());
-        setId(Collections.max(idSet) + 1);
+    }
+
+    public House(boolean isNew) throws IOException {
+        if (isNew) {
+            Set<Integer> idSet = new TreeSet<>();
+
+            idSet.addAll(getAll().keySet());
+            setId(Collections.max(idSet) + 1);
+        }
     }
 
     public House(int id) {
@@ -73,7 +79,7 @@ public class House {
         ObjectMapper houseMapper = new ObjectMapper();
         JsonNode houseNode = houseMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
-        House newHouse = new House(0);
+        House newHouse = new House();
 
         for (JsonNode house : houseNode) {
             if (house.path("id").asInt() == id) {
@@ -87,7 +93,7 @@ public class House {
     }
 
     public static House get(JsonNode house) throws IOException {
-        House newHouse = new House(0);
+        House newHouse = new House();
         Iterator<String> fieldIterator;
 
         newHouse.address = house.path("address").textValue();
