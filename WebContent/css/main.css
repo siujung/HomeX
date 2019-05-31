@@ -958,6 +958,17 @@ input:checked+label div{ background:#16a085; }
   width: auto;
   height: auto;
   display:inline-block;
+  margin-right: 10%;
+}
+.more{
+  text-align: right;
+  display: block;
+  margin-top: 5%;
+}
+.module-wrapper {
+  text-align: right;
+  display: block;
+  margin-top: 5%;
 }
 
 
@@ -972,6 +983,10 @@ input:checked+label div{ background:#16a085; }
   width: auto;
   height: auto;
   margin: auto;
+}
+.contact{
+  text-align: center;
+  margin: 10%;
 }
 
 

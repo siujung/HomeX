@@ -67,15 +67,16 @@ img {
 /* --------------------------------
 Modules - reusable parts of our design
 -------------------------------- */
-.container {
-
-
+.containers {
+    width: auto;
+    height: auto;
+    display:inline-block;
 }
 .ul-container {
     /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
-    width: 728px;
+    width: 720px;
     max-width: 1170px;
-    margin: 0 auto;
+
 
 }
 .ul-container:after {
