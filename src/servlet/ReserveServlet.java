@@ -1,6 +1,11 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +41,7 @@ public class ReserveServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         
         if(!authentication.isLoggedIn()){
-            response.senRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -55,19 +60,31 @@ public class ReserveServlet extends HttpServlet {
         //Need a way to make a unique ID for each order
 
         String houseId = (String)request.getParameter("house");
-        int house = Int.parseInt(houseId);
+        int house = Integer.parseInt(houseId);
 
         String hostId = (String)request.getParameter("host");
-        int host = Int.parseInt(hostId);
+        int host = Integer.parseInt(hostId);
 
         HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         int tenant = authentication.getUser().getId();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date start = dateFormat.parse((String)request.getParameter("start"));
-        Date end = dateFormat.parse((String)request.getParameter("end"));
-        
+        Date start = null;
+		try {
+			start = dateFormat.parse((String)request.getParameter("start"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Date end = null;
+		try {
+			end = dateFormat.parse((String)request.getParameter("end"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //need error handler
         Order order = new Order();
         order.setId(id);
         order.setHouse(house);

@@ -1,9 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,21 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import control.*;
-import bean.*;
-import bean.User.Sex;
+import bean.User;
+import control.Administrator;
+import control.Authentication;
 
 /**
- * Servlet implementation class ProfileServlet
+ * Servlet implementation class DeleteProfileServlet
  */
-@WebServlet("/ProfileServlet")
-public class ProfileServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    
+@WebServlet("/DeleteProfileServlet")
+public class DeleteProfileServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfileServlet() {
+    public DeleteProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,8 +37,8 @@ public class ProfileServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-        
-        HttpSession session = request.getSession();
+		
+		HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
@@ -49,48 +48,38 @@ public class ProfileServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);
-    }
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        //doGet(request, response);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthdate = null;
-		try {
-			birthdate = dateFormat.parse((String)request.getParameter("birthdate"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//need error handler
-        
-        String strSex = (String)request.getParameter("sex");
-        Sex sex;
-        if(strSex.equals("male")){
-            sex = Sex.male;
-        }
-        else if(strSex.equals("female")){
-            sex = Sex.female;
-        }
-        else sex = Sex.other;
+		//doGet(request, response);
+		HttpSession session = request.getSession();
 
-        String email = (String)request.getParameter("email");
-        String telephone = (String)request.getParameter("telephone");
-
-        HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
+        
         User user = authentication.getUser();
-
-        user.setBirthdate(birthdate);
-        user.setSex(sex);
-        user.setEmail(email);
-        user.setTelephone(telephone);
-
-        User.set(user);
-
-        response.sendRedirect(request.getContextPath() + "/profile.jsp");
+        int id = user.getId();
+        
+        Set<Integer> house = user.getHouse();
+        Iterator<Integer> itr = house.iterator();
+        int houseId;
+        while(itr.hasNext()) {
+        	houseId = itr.next();
+            administrator.deleteHouse(houseId);
+        }
+        
+        authentication = null;
+        administrator.deleteUser(id);
+        administrator = null;
+        
+        session.setAttribute("authentication", authentication);
+        session.setAttribute("administrator", administrator);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("login.html");
+		dispatcher.forward(request, response);
 	}
+
 }

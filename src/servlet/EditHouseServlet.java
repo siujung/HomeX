@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,19 +39,19 @@ public class EditHouseServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.senRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             //Must change redirect page to proper login page name
             return;
         }
 
         String houseId = (String)request.getParameter("houseId");
-        int id = Int.parseInt(houseId);
+        int id = Integer.parseInt(houseId);
 
         Administrator administrator = (Administrator)session.getAttribute("administrator");
         House house = administrator.getHouse(id);
         
         if(house != null){
-            response.sendRedirect(request.ServletPath() + "/view.property.jsp")
+            response.sendRedirect(request.getServletPath() + "/view.property.jsp");
             return;
         }
 
@@ -67,7 +69,7 @@ public class EditHouseServlet extends HttpServlet {
         //doGet(request, response);        
 
         String houseId = (String)request.getParameter("houseId");
-        int id = Int.parseInt(houseId);
+        int id = Integer.parseInt(houseId);
 
         String available = (String)request.getParameter("available");
         boolean isAvailable;
@@ -78,14 +80,14 @@ public class EditHouseServlet extends HttpServlet {
             isAvailable = false;
         }
 
-        //Way to get Constraints and Services
+        //We need a way to get Constraints and Services
 
         String address = (String)request.getParameter("address");
         String title = (String)request.getParameter("title");
 
         HttpSession session = request.getSession();
-        Authentication authentication = (Authentication)session.getAttribute("authentication");
-        User user = authentication.getUser();
+        //Authentication authentication = (Authentication)session.getAttribute("authentication");
+        //User user = authentication.getUser();
         
         Administrator administrator = (Administrator)session.getAttribute("administrator");
         //Problem with data structure?

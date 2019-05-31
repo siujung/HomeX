@@ -22,7 +22,7 @@ public class Authentication {
         this.user = User.get(username, password);
     }
 
-    public static boolean isAuthentic(String username, String password) throws IOException, ParseException {
+    public boolean isAuthentic(String username, String password) throws IOException, ParseException {
         setUser(User.get(username, password));
         if (this.user.equals(null))
             return false;
