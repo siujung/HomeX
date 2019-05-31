@@ -63,8 +63,9 @@
 							}
 						%>
 						<div class="input-group input--large">
-							<label class="label">Location</label> <input class="input--style-1"
-								type="text" placeholder="Address" name="address">
+							<label class="label">Location</label> <input
+								class="input--style-1" type="text" placeholder="Address"
+								name="address">
 						</div>
 						<div class="input-group input--medium">
 							<label class="label">Check-In</label> <input
@@ -89,110 +90,110 @@
 						<button class="btn-submit" type="submit">Search</button>
 
 						<!-- More filters button-->
-                                                <div class=" toggle-display" >
-                                                    <div class="module-wrapper">
-                                                        <label class="btn-submit">More Filters</label>
-                                                    </div>
-                                                </div>
+						<div class=" toggle-display">
+							<div class="module-wrapper">
+								<label class="btn-submit">More Filters</label>
+							</div>
+						</div>
+						<div class="box" style="display: none;">
+							<div class="container">
+								<h3>
+									Constraint <i class="fa fa-check"></i>
+								</h3>
+								<div class="control-group">
+									<div>
+										<input class="input-check" type="checkbox" id="kidConstraint"
+											name="Constraint" value="kid" /> <label for="kidConstraint">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> kid
+										</label>
+									</div>
 
-						<div class="container">
-							<h3>
-								Constraint <i class="fa fa-check"></i>
-							</h3>
-							<div class="control-group">
-								<div>
-									<input class="input-check" type="checkbox" id="kidConstraint"
-										name="Constraint" value="kid" /> <label for="kidConstraint">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> kid
-									</label>
+									<div>
+										<input class="input-check" type="checkbox"
+											id="noiseConstraint" name="Constraint" value="noise" /> <label
+											for="noiseConstraint">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> noise
+										</label>
+									</div>
+
+									<div>
+										<input class="input-check" type="checkbox" id="petConstraint"
+											name="Constraint" value="pet" /> <label for="petConstraint">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> pet
+										</label>
+									</div>
+
+									<div>
+										<input class="input-check" type="checkbox"
+											id="smokeConstraint" name="Constraint" value="smoke" /> <label
+											for="smokeConstraint">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> smoke
+										</label>
+									</div>
+
+									<div>
+										<input class="input-check" type="checkbox"
+											id="otherConstraint" name="Constraint" value="other" /> <label
+											for="otherConstraint">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> other
+										</label>
+									</div>
 								</div>
+							</div>
 
-								<div>
-									<input class="input-check" type="checkbox" id="noiseConstraint"
-										name="Constraint" value="noise" /> <label
-										for="noiseConstraint">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> noise
-									</label>
-								</div>
+							<div class="container">
+								<h3>
+									Service <i class="fa fa-check"></i>
+								</h3>
+								<div class="control-group">
+									<div>
+										<input class="input-check" type="checkbox" id="cleanService"
+											name="Service" value="clean" /> <label for="cleanService">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> clean
+										</label>
+									</div>
 
-								<div>
-									<input class="input-check" type="checkbox" id="petConstraint"
-										name="Constraint" value="pet" /> <label for="petConstraint">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> pet
-									</label>
-								</div>
+									<div>
+										<input class="input-check" type="checkbox" id="petService"
+											name="Service" value="pet" /> <label for="petService">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> pet
+										</label>
+									</div>
 
-								<div>
-									<input class="input-check" type="checkbox" id="smokeConstraint"
-										name="Constraint" value="smoke" /> <label
-										for="smokeConstraint">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> smoke
-									</label>
-								</div>
+									<div>
+										<input class="input-check" type="checkbox" id="plantService"
+											name="Service" value="plant" /> <label for="plantService">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> plant
+										</label>
+									</div>
 
-								<div>
-									<input class="input-check" type="checkbox" id="otherConstraint"
-										name="Constraint" value="other" /> <label
-										for="otherConstraint">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> other
-									</label>
+									<div>
+										<input class="input-check" type="checkbox" id="otherService"
+											name="Service" value="other" /> <label for="otherService">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> other
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="container">
-							<h3>
-								Service <i class="fa fa-check"></i>
-							</h3>
-							<div class="control-group">
-								<div>
-									<input class="input-check" type="checkbox" id="cleanService"
-										name="Service" value="clean" /> <label for="cleanService">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> clean
-									</label>
-								</div>
-
-								<div>
-									<input class="input-check" type="checkbox" id="petService"
-										name="Service" value="pet" /> <label for="petService">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> pet
-									</label>
-								</div>
-
-								<div>
-									<input class="input-check" type="checkbox" id="plantService"
-										name="Service" value="plant" /> <label for="plantService">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> plant
-									</label>
-								</div>
-
-								<div>
-									<input class="input-check" type="checkbox" id="otherService"
-										name="Service" value="other" /> <label for="otherService">
-										<div>
-											<i class="fa fa-check"></i>
-										</div> other
-									</label>
-								</div>
-							</div>
-						</div>
-
 					</form>
 				</div>
 			</div>

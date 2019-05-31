@@ -64,7 +64,7 @@ public class Order {
         ObjectMapper orderMapper = new ObjectMapper();
         JsonNode orderNode = orderMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
-        Order newOrder = new Order();
+        Order newOrder = new Order(0);
 
         for (JsonNode order : orderNode) {
             if (order.path("id").asInt() == id) {
@@ -77,7 +77,7 @@ public class Order {
     }
 
     public static Order get(JsonNode order) throws ParseException, IOException {
-        Order newOrder = new Order();
+        Order newOrder = new Order(0);
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

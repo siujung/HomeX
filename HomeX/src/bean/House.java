@@ -73,7 +73,7 @@ public class House {
         ObjectMapper houseMapper = new ObjectMapper();
         JsonNode houseNode = houseMapper
                 .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
-        House newHouse = new House();
+        House newHouse = new House(0);
 
         for (JsonNode house : houseNode) {
             if (house.path("id").asInt() == id) {
@@ -87,7 +87,7 @@ public class House {
     }
 
     public static House get(JsonNode house) throws IOException {
-        House newHouse = new House();
+        House newHouse = new House(0);
         Iterator<String> fieldIterator;
 
         newHouse.address = house.path("address").textValue();

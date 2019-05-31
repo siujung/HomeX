@@ -77,7 +77,7 @@ public class User {
     public static User get(int id) throws IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
-        User newUser = new User();
+        User newUser = new User(0);
 
         for (JsonNode user : userNode) {
             if (user.path("id").asInt() == id) {
@@ -95,7 +95,7 @@ public class User {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
 
-        User newUser = new User();
+        User newUser = new User(0);
 
         for (JsonNode user : userNode) {
             if (user.path("username").textValue().equals(username)
@@ -110,7 +110,7 @@ public class User {
     }
 
     public static User get(JsonNode user) throws ParseException, IOException {
-        User newUser = new User();
+        User newUser = new User(0);
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

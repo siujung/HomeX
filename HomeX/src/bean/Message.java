@@ -86,7 +86,7 @@ public class Message {
     }
 
     public static Message get(JsonNode message) {
-        Message newMessage = new Message();
+        Message newMessage = new Message(null);
 
         newMessage.content = message.path("content").textValue();
         newMessage.from = message.path("from").asInt();
