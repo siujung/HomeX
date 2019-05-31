@@ -1,6 +1,11 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,18 +15,19 @@ import javax.servlet.http.HttpSession;
 
 import control.*;
 import bean.*;
+import bean.User.Sex;
 
 /**
- * Servlet implementation class ReserveServlet
+ * Servlet implementation class ProfileServlet
  */
-@WebServlet("/ReserveServlet")
-public class ReserveServlet extends HttpServlet {
+@WebServlet("/ProfileServlet")
+public class ProfileServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserveServlet() {
+    public ProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +38,16 @@ public class ReserveServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+        
         HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
-        
+
         if(!authentication.isLoggedIn()){
-            response.senRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/search.result.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -50,34 +57,40 @@ public class ReserveServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         //doGet(request, response);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthdate = null;
+		try {
+			birthdate = dateFormat.parse((String)request.getParameter("birthdate"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//need error handler
+        
+        String strSex = (String)request.getParameter("sex");
+        Sex sex;
+        if(strSex.equals("male")){
+            sex = Sex.male;
+        }
+        else if(strSex.equals("female")){
+            sex = Sex.female;
+        }
+        else sex = Sex.other;
 
-        int id = 0;
-        //Need a way to make a unique ID for each order
-
-        String houseId = (String)request.getParameter("house");
-        int house = Int.parseInt(houseId);
-
-        String hostId = (String)request.getParameter("host");
-        int host = Int.parseInt(hostId);
+        String email = (String)request.getParameter("email");
+        String telephone = (String)request.getParameter("telephone");
 
         HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
-        int tenant = authentication.getUser().getId();
+        User user = authentication.getUser();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date start = dateFormat.parse((String)request.getParameter("start"));
-        Date end = dateFormat.parse((String)request.getParameter("end"));
-        
-        Order order = new Order();
-        order.setId(id);
-        order.setHouse(house);
-        order.setHost(host);
-        order.setTenant(tenant);
-        order.setStart(start);
-        order.setEnd(end);
+        user.setBirthdate(birthdate);
+        user.setSex(sex);
+        user.setEmail(email);
+        user.setTelephone(telephone);
 
-        Order.set(order);
+        User.set(user);
 
         response.sendRedirect(request.getContextPath() + "/profile.jsp");
-    }
+	}
 }

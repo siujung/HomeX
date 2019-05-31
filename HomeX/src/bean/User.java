@@ -5,11 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -35,7 +37,11 @@ public class User {
         male, female, other
     }
 
-    public User() {
+    public User() throws IOException, ParseException {
+        Set<Integer> idSet = new TreeSet<>();
+
+        idSet.addAll(getAll().keySet());
+        setId(Collections.max(idSet) + 1);
     }
 
     public User(int id) {
@@ -103,7 +109,7 @@ public class User {
         return null;
     }
 
-    public static User get(JsonNode user) throws ParseException {
+    public static User get(JsonNode user) throws ParseException, IOException {
         User newUser = new User();
 
         try {

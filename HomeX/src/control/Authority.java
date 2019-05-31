@@ -3,9 +3,6 @@ package control;
 import java.util.HashMap;
 import java.util.Map;
 
-// A ordinary user can be regarded as an administrator with none authorities
-// who can only use his id in setUser, all ids in getUser and so on
-// in this case the profile.java can be omitted
 public class Authority {
     private Map<Type, Range> House;
     private Map<Type, Range> Order;
@@ -25,7 +22,7 @@ public class Authority {
     }
 
     public Authority() {
-        this(Role.none);
+        this(Role.visitor);
     }
 
     public Authority(Role role) {
