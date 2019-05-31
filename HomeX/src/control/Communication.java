@@ -1,24 +1,6 @@
 package control;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import bean.House;
-import bean.Order;
-import bean.User;
-import control.Authority.Range;
-import control.Authority.Role;
-import control.Authority.Type;
-
-/**
- * Servlet implementation class contact
- */
-@WebServlet("/contact")
-public class contact extends HttpServlet {
+public class Communication {
 	private Map<Integer, Message> message;
     private Authority authority;
     private int id = 0;
@@ -130,6 +112,5 @@ public class contact extends HttpServlet {
     public void setId(int id) {
         this.id = id;
     }
-
 
 }
