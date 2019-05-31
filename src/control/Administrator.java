@@ -18,7 +18,8 @@ public class Administrator {
     private Authority authority;
     private int id = 0;
 
-    public Administrator() {
+    public Administrator() throws IOException, ParseException {
+        this(Role.visitor);
     }
 
     public Administrator(Role role) throws IOException, ParseException {

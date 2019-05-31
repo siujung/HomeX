@@ -5,9 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -26,7 +29,10 @@ public class Order {
     private Date start;
     private Date end;
 
-    public Order() {
+    public Order() throws IOException, ParseException {
+        Set<Integer> idSet = new TreeSet<>();
+        idSet.addAll(getAll().keySet());
+        setId(Collections.max(idSet) + 1);
     }
 
     public Order(int id) {

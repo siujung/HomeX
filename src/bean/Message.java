@@ -24,6 +24,7 @@ public class Message {
     private Timestamp time;
 
     public Message() {
+        this(new Timestamp(System.currentTimeMillis()));
     }
 
     public Message(Timestamp timestamp) {
