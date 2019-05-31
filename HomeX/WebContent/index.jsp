@@ -63,8 +63,8 @@
 							}
 						%>
 						<div class="input-group input--large">
-							<label class="label">Title</label> <input class="input--style-1"
-								type="text" placeholder="Property" name="property">
+							<label class="label">Location</label> <input class="input--style-1"
+								type="text" placeholder="Address" name="address">
 						</div>
 						<div class="input-group input--medium">
 							<label class="label">Check-In</label> <input
@@ -87,6 +87,13 @@
 							</div>
 						</div>
 						<button class="btn-submit" type="submit">Search</button>
+
+						<!-- More filters button-->
+                                                <div class=" toggle-display" >
+                                                    <div class="module-wrapper">
+                                                        <label class="btn-submit">More Filters</label>
+                                                    </div>
+                                                </div>
 
 						<div class="container">
 							<h3>
@@ -204,6 +211,7 @@
 
 	<!-- Main JS-->
 	<script src="js/global.js"></script>
+	<script src="js/search.js"></script>
 
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
