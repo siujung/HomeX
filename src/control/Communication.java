@@ -121,25 +121,6 @@ public class contact extends HttpServlet {
             return false;
         }
     }
-
-    public Set<Dialoge> getMessage(House pattern) {
-        Range rangeAuthority = authority.getHouse().get(Type.get);
-
-        switch (rangeAuthority) {
-        case all:
-            return matchHouse(pattern);
-        case self:
-            if (null == this.house.get(id))
-                return null;
-            else if (this.house.get(id).getHost() != this.id)
-                return null;
-            else
-                return matchHouse(pattern);
-        default:
-        case none:
-            return null;
-        }
-    }
     
     
     public int getId() {
