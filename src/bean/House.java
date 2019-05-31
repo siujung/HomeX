@@ -86,7 +86,7 @@ public class House {
         return null;
     }
 
-    public static House get(JsonNode house) {
+    public static House get(JsonNode house) throws IOException {
         House newHouse = new House();
         Iterator<String> fieldIterator;
 

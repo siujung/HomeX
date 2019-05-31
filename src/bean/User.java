@@ -109,7 +109,7 @@ public class User {
         return null;
     }
 
-    public static User get(JsonNode user) throws ParseException {
+    public static User get(JsonNode user) throws ParseException, IOException {
         User newUser = new User();
 
         try {

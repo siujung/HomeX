@@ -76,7 +76,7 @@ public class Order {
         return newOrder;
     }
 
-    public static Order get(JsonNode order) throws ParseException {
+    public static Order get(JsonNode order) throws ParseException, IOException {
         Order newOrder = new Order();
 
         try {
