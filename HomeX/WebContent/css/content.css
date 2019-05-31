@@ -76,6 +76,7 @@ Modules - reusable parts of our design
     /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
     width: 720px;
     max-width: 1170px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
 
 }

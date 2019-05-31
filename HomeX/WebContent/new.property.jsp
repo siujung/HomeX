@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" import="cookie.Manage, java.net.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,14 +23,32 @@
 
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
+
+    <style>
+
+        img{
+            width: 200px;
+            max-width: 200px;
+            text-align: center;
+            display: inline;
+            margin-right: 2%;
+            margin-left: 2%;
+            margin-top: 2%;
+        }
+
+
+
+    </style>
+
     <link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah' rel='stylesheet' type='text/css'>
 
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
         $(function(){
-            $("#header").load("navbar.html");
+            $("#header").load("navbar.after.html");
         });
     </script>
 
@@ -36,7 +56,18 @@
 
 <div id="header"></div>
 
-<body>
+<body style="background: #ffece0">
+
+    <div class="gallery" style="text-align: center"></div>
+
+
+
+        <div class="cover">
+            <input type="file" multiple id="gallery-photo-add" >
+        </div>
+
+
+
     <div class="page-wrapper bg-color-1 p-t-395 p-b-120">
         <div class="wrapper wrapper--w1070">
             <div class="card card-7">
@@ -51,11 +82,11 @@
 
                         <!-- Check In,Out inputs-->
                         <div class="input-group input--medium">
-                            <label class="label">Check-In</label>
+                            <label class="label">Start-date</label>
                             <input class="input--style-1" type="text" name="checkin" placeholder="mm/dd/yyyy" id="input-start">
                         </div>
                         <div class="input-group input--medium">
-                            <label class="label">Check-Out</label>
+                            <label class="label">End-date</label>
                             <input class="input--style-1" type="text" name="checkout" placeholder="mm/dd/yyyy" id="input-end">
                         </div>
 
@@ -72,7 +103,7 @@
                         </div>
 
                         <!-- Search button-->
-                        <button class="btn-submit" type="submit">search</button>
+                        <button class="btn-submit" type="submit">save</button>
 
                         <!-- More filters button-->
                         <div class=" toggle-display" >

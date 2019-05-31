@@ -989,6 +989,11 @@ input:checked+label div{ background:#16a085; }
   margin: 10%;
 }
 
+.cover{
+  margin-left: 40%;
+  margin-top: 5% !important;
+}
+
 
 
 
