@@ -56,8 +56,9 @@ public class ReserveServlet extends HttpServlet {
 		// TODO Auto-generated method stub
         //doGet(request, response);
 
-        int id = 0;
+        //int id = 0;
         //Need a way to make a unique ID for each order
+		String errorMessage = "";
 
         String houseId = (String)request.getParameter("house");
         int house = Integer.parseInt(houseId);
@@ -85,16 +86,29 @@ public class ReserveServlet extends HttpServlet {
 			e.printStackTrace();
 		}
         //need error handler
-        Order order = new Order();
-        order.setId(id);
-        order.setHouse(house);
-        order.setHost(host);
-        order.setTenant(tenant);
-        order.setStart(start);
-        order.setEnd(end);
+        Order order;
+		try {
+			order = new Order();
+			//order.setId(id);
+	        order.setHouse(house);
+	        order.setHost(host);
+	        order.setTenant(tenant);
+	        order.setStart(start);
+	        order.setEnd(end);
 
-        Order.set(order);
-
-        response.sendRedirect(request.getContextPath() + "/profile.jsp");
+	        Order.set(order);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			errorMessage = errorMessage + "Error occurred while creating new order.\n";
+		}
+		request.setAttribute("errorMessage", errorMessage);
+		if(errorMessage.equals("")) {
+	        response.sendRedirect(request.getContextPath() + "/profile.jsp");
+		}
+		else {
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/search.jsp");
+			dispatcher.forward(request, response);
+		}
     }
 }

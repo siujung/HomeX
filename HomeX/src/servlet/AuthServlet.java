@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import control.*;
 import control.Authority.Role;
-import bean.*;
 
 /**
  * Servlet implementation class AuthServlet
@@ -95,7 +94,7 @@ public class AuthServlet extends HttpServlet {
             //dispatcher.include(request, response);
         }
         else {
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.html");
             //Must change to appropriate jsp page upon unsuccessful login
             //Or send message such as:
             //  login fail: username and password incorrect

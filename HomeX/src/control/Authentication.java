@@ -29,4 +29,19 @@ public class Authentication {
         else
             return true;
     }
+    
+    public boolean isLoggedIn() {
+        if (this.user.equals(null)) {
+            return false;
+        } else
+            return true;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
 }
