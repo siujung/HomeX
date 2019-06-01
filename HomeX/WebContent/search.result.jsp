@@ -88,9 +88,14 @@
 		</div>
 
 		<div class="cd-item-info">
-			<h2>Property Title</h2>
-			<p>Description</p>
-
+			<h2 id="title">Title</h2>
+			<p id="id">id</p>
+			<p id="host">host</p>
+			<p id="tenant">tenant</p>
+			<p id="isAvailable">isAvailable</p>
+			<p id="constraint">constraint</p>
+			<p id="service">service</p>
+			<p id="address">address</p>
 			<ul class="cd-item-action">
 				<li><button class="register">Register</button></li>
 			</ul>
