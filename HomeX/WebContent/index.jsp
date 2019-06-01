@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="cookie.Manage, java.net.*"%>
+	pageEncoding="ISO-8859-1"
+	import="cookie.Manage, java.net.*, file.Download"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +48,17 @@
 <body>
 
 	<%
+		Cookie cDatabase = Manage.getCookie(request, "Database");
+
+		if (null == cDatabase) {
+			String basePath = Download.getBasePath(request) + "DAO/";
+			Download.getFile(basePath + "house.json", "house.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "user.json", "user.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "order.json", "order.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "message.json", "message.json", System.getProperty("user.home") + "/HomeX");
+			Manage.setCookie(request, response, "Database", "true");
+		}
+
 		Cookie cRedirect = Manage.getCookie(request, "Redirect");
 
 		if (null == cRedirect) {

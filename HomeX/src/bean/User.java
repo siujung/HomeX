@@ -60,7 +60,7 @@ public class User {
     }
 
     public static void delete(int id) throws IOException {
-        File userFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json");
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         JsonFactory userFactory = new JsonFactory();
         ObjectMapper userMapper = new ObjectMapper();
         ArrayNode userNode = (ArrayNode) userMapper.readTree(userFile);
@@ -81,8 +81,9 @@ public class User {
     }
 
     public static User get(int id) throws IOException, ParseException {
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(userFile);
         User newUser = new User();
 
         for (JsonNode user : userNode) {
@@ -98,8 +99,9 @@ public class User {
     // if(isAuthentic) return User;
     // else return null;
     public static User get(String username, String password) throws IOException, ParseException {
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(userFile);
         User newUser = new User();
 
         for (JsonNode user : userNode) {
@@ -117,8 +119,9 @@ public class User {
     // if(isUserExisted) return User;
     // else return null;
     public static User get(String username) throws IOException, ParseException {
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(userFile);
         User newUser = new User();
 
         for (JsonNode user : userNode) {
@@ -175,8 +178,9 @@ public class User {
     }
 
     public static Map<Integer, User> getAll() throws IOException, ParseException {
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         ObjectMapper userMapper = new ObjectMapper();
-        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        JsonNode userNode = userMapper.readTree(userFile);
         Map<Integer, User> userMap = new HashMap<>();
 
         for (JsonNode user : userNode) {
@@ -189,7 +193,7 @@ public class User {
     }
 
     public static void set(User user) throws IOException {
-        File userFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json");
+        File userFile = new File(System.getProperty("user.home") + "/HomeX/user.json");
         JsonFactory userFactory = new JsonFactory();
         JsonNodeFactory userNodeFactory = new JsonNodeFactory(false);
         ObjectMapper userMapper = new ObjectMapper();

@@ -55,7 +55,7 @@ public class House {
     }
 
     public static void delete(int id) throws IOException {
-        File houseFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json");
+        File houseFile = new File(System.getProperty("user.home") + "/HomeX/house.json");
         JsonFactory houseFactory = new JsonFactory();
         ObjectMapper houseMapper = new ObjectMapper();
         ArrayNode houseNode = (ArrayNode) houseMapper.readTree(houseFile);
@@ -76,9 +76,9 @@ public class House {
     }
 
     public static House get(int id) throws IOException, ParseException {
+        File houseFile = new File(System.getProperty("user.home") + "/HomeX/house.json");
         ObjectMapper houseMapper = new ObjectMapper();
-        JsonNode houseNode = houseMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
+        JsonNode houseNode = houseMapper.readTree(houseFile);
         House newHouse = new House();
 
         for (JsonNode house : houseNode) {
@@ -150,9 +150,9 @@ public class House {
     }
 
     public static Map<Integer, House> getAll() throws IOException {
+        File houseFile = new File(System.getProperty("user.home") + "/HomeX/house.json");
         ObjectMapper houseMapper = new ObjectMapper();
-        JsonNode houseNode = houseMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json"));
+        JsonNode houseNode = houseMapper.readTree(houseFile);
         Map<Integer, House> houseMap = new HashMap<>();
 
         for (JsonNode house : houseNode) {
@@ -165,7 +165,7 @@ public class House {
     }
 
     public static void set(House house) throws IOException {
-        File houseFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/house.json");
+        File houseFile = new File(System.getProperty("user.home") + "/HomeX/house.json");
         JsonFactory houseFactory = new JsonFactory();
         JsonNodeFactory houseNodeFactory = new JsonNodeFactory(false);
         ObjectMapper houseMapper = new ObjectMapper();

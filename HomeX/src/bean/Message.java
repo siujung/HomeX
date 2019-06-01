@@ -44,7 +44,7 @@ public class Message {
     }
 
     public static void delete(Message message) throws IOException {
-        File messageFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json");
+        File messageFile = new File(System.getProperty("user.home") + "/HomeX/message.json");
         JsonFactory messageFactory = new JsonFactory();
         ObjectMapper messageMapper = new ObjectMapper();
         ArrayNode messageNode = (ArrayNode) messageMapper.readTree(messageFile);
@@ -68,9 +68,9 @@ public class Message {
     }
 
     public static List<Message> get(int from, int to, boolean is2Way) throws IOException {
+        File messageFile = new File(System.getProperty("user.home") + "/HomeX/message.json");
         ObjectMapper messageMapper = new ObjectMapper();
-        JsonNode messageNode = messageMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json"));
+        JsonNode messageNode = messageMapper.readTree(messageFile);
         List<Message> newMessage = new ArrayList<>();
         MessageComparator messageComparator = new MessageComparator();
 
@@ -102,7 +102,7 @@ public class Message {
     }
 
     public static void set(Message message) throws IOException {
-        File messageFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/message.json");
+        File messageFile = new File(System.getProperty("user.home") + "/HomeX/message.json");
         JsonFactory messageFactory = new JsonFactory();
         JsonNodeFactory messageNodeFactory = new JsonNodeFactory(false);
         ObjectMapper messageMapper = new ObjectMapper();

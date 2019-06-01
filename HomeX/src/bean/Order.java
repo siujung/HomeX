@@ -46,7 +46,7 @@ public class Order {
     }
 
     public static void delete(int id) throws IOException {
-        File orderFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json");
+        File orderFile = new File(System.getProperty("user.home") + "/HomeX/order.json");
         JsonFactory orderFactory = new JsonFactory();
         ObjectMapper orderMapper = new ObjectMapper();
         ArrayNode orderNode = (ArrayNode) orderMapper.readTree(orderFile);
@@ -67,9 +67,9 @@ public class Order {
     }
 
     public static Order get(int id) throws IOException, ParseException {
+        File orderFile = new File(System.getProperty("user.home") + "/HomeX/order.json");
         ObjectMapper orderMapper = new ObjectMapper();
-        JsonNode orderNode = orderMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
+        JsonNode orderNode = orderMapper.readTree(orderFile);
         Order newOrder = new Order();
 
         for (JsonNode order : orderNode) {
@@ -108,9 +108,9 @@ public class Order {
     }
 
     public static Map<Integer, Order> getAll() throws IOException, ParseException {
+        File orderFile = new File(System.getProperty("user.home") + "/HomeX/order.json");
         ObjectMapper orderMapper = new ObjectMapper();
-        JsonNode orderNode = orderMapper
-                .readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json"));
+        JsonNode orderNode = orderMapper.readTree(orderFile);
         Map<Integer, Order> orderMap = new HashMap<>();
 
         for (JsonNode order : orderNode) {
@@ -123,7 +123,7 @@ public class Order {
     }
 
     public static void set(Order order) throws IOException {
-        File orderFile = new File(System.getProperty("user.dir") + "/WebContent/DAO/order.json");
+        File orderFile = new File(System.getProperty("user.home") + "/HomeX/order.json");
         JsonFactory orderFactory = new JsonFactory();
         JsonNodeFactory orderNodeFactory = new JsonNodeFactory(false);
         ObjectMapper orderMapper = new ObjectMapper();
