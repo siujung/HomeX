@@ -48,6 +48,7 @@ public class SearchServlet extends HttpServlet {
 				break;
 			case "visitor":
 				administrator = new Administrator(Authority.Role.visitor);
+				break;
 			case "user":
 				administrator = new Administrator(Authority.Role.user);
 				break;
@@ -63,15 +64,15 @@ public class SearchServlet extends HttpServlet {
 			House housePattern = new House();
 			String[] constraintPattern = null;
 			String[] servicePattern = null;
-			Set<House> houseResult = administrator.getHouse(housePattern);
+			Set<House> houseResult;
 			Map<Constraint, String> constraintMap = new HashMap<>();
 			Map<Service, String> serviceMap = new HashMap<>();
 
-			housePattern.setAddress(request.getParameter("Address"));
-			housePattern.setAvailable(request.getParameter("Available") != null
-					? request.getParameter("Available").toLowerCase().equals("true")
+			housePattern.setAddress(request.getParameter("address"));
+			housePattern.setAvailable(request.getParameter("isAvailable") != null
+					? request.getParameter("isAvailable").toLowerCase().equals("true")
 					: false);
-			constraintPattern = request.getParameterValues("Constraint");
+			constraintPattern = request.getParameterValues("constraint");
 			if (constraintPattern != null) {
 				for (String constraint : constraintPattern) {
 					if (constraint.equals("kid"))
@@ -87,7 +88,7 @@ public class SearchServlet extends HttpServlet {
 				}
 			}
 			housePattern.setConstraint(constraintMap);
-			servicePattern = request.getParameterValues("Service");
+			servicePattern = request.getParameterValues("service");
 			if (servicePattern != null) {
 				for (String service : servicePattern) {
 					if (service.equals("clean"))
@@ -102,19 +103,20 @@ public class SearchServlet extends HttpServlet {
 			}
 			housePattern.setService(serviceMap);
 			housePattern
-					.setHost(request.getParameter("Host") != null ? Integer.valueOf(request.getParameter("Host")) : 0);
+					.setHost(request.getParameter("host") != null ? Integer.valueOf(request.getParameter("host")) : 0);
 			housePattern.setTenant(
-					request.getParameter("Tenant") != null ? Integer.valueOf(request.getParameter("Tenant")) : 0);
-			housePattern.setId(request.getParameter("Id") != null ? Integer.valueOf(request.getParameter("Id")) : 0);
-			housePattern.setTitle(request.getParameter("Title"));
+					request.getParameter("tenant") != null ? Integer.valueOf(request.getParameter("tenant")) : 0);
+			housePattern.setId(request.getParameter("id") != null ? Integer.valueOf(request.getParameter("id")) : 0);
+			housePattern.setTitle(request.getParameter("title"));
+			houseResult = administrator.getHouse(housePattern);
 			request.setAttribute("houseResult", houseResult);
-			NextPage = "/search.result.html";
+			NextPage = "/search.result.jsp";
 		} else if (redirect.equals("houseView")) {
 			int houseId = (int) request.getAttribute("houseId");
 			House houseRedirect = administrator.getHouse(houseId);
 
 			request.setAttribute("houseRedirect", houseRedirect);
-			NextPage = "/view.property.html";
+			NextPage = "/view.property.jsp";
 		}
 
 		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher(NextPage);

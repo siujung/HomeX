@@ -103,7 +103,7 @@
 								<div class="control-group">
 									<div>
 										<input class="input-check" type="checkbox" id="kidConstraint"
-											name="Constraint" value="kid" /> <label for="kidConstraint">
+											name="constraint" value="kid" /> <label for="kidConstraint">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> kid
@@ -112,7 +112,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox"
-											id="noiseConstraint" name="Constraint" value="noise" /> <label
+											id="noiseConstraint" name="constraint" value="noise" /> <label
 											for="noiseConstraint">
 											<div>
 												<i class="fa fa-check"></i>
@@ -122,7 +122,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox" id="petConstraint"
-											name="Constraint" value="pet" /> <label for="petConstraint">
+											name="constraint" value="pet" /> <label for="petConstraint">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> pet
@@ -131,7 +131,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox"
-											id="smokeConstraint" name="Constraint" value="smoke" /> <label
+											id="smokeConstraint" name="constraint" value="smoke" /> <label
 											for="smokeConstraint">
 											<div>
 												<i class="fa fa-check"></i>
@@ -141,7 +141,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox"
-											id="otherConstraint" name="Constraint" value="other" /> <label
+											id="otherConstraint" name="constraint" value="other" /> <label
 											for="otherConstraint">
 											<div>
 												<i class="fa fa-check"></i>
@@ -158,7 +158,7 @@
 								<div class="control-group">
 									<div>
 										<input class="input-check" type="checkbox" id="cleanService"
-											name="Service" value="clean" /> <label for="cleanService">
+											name="service" value="clean" /> <label for="cleanService">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> clean
@@ -167,7 +167,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox" id="petService"
-											name="Service" value="pet" /> <label for="petService">
+											name="service" value="pet" /> <label for="petService">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> pet
@@ -176,7 +176,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox" id="plantService"
-											name="Service" value="plant" /> <label for="plantService">
+											name="service" value="plant" /> <label for="plantService">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> plant
@@ -185,7 +185,7 @@
 
 									<div>
 										<input class="input-check" type="checkbox" id="otherService"
-											name="Service" value="other" /> <label for="otherService">
+											name="service" value="other" /> <label for="otherService">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> other
