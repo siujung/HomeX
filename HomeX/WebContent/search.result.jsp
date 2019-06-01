@@ -52,9 +52,6 @@
 	<%
 		Cookie cRedirect = Manage.getCookie(request, "Redirect");
 		Set<House> houseResult = (HashSet<House>) request.getAttribute("houseResult");
-		for (House house : houseResult) {
-			System.out.println(house.getId());
-		}
 	%>
 
 	<header>
@@ -63,41 +60,14 @@
 
 	<!-- every li tag represent a picture with its quick view button-->
 	<ul class="cd-items cd-container">
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
-
-		<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-			<a href="#0" class="cd-trigger">Quick View</a></li>
+		<%
+			if (houseResult != null) {
+				for (House house : houseResult) {
+					out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getId()
+							+ "\"><a href=\"#0\" class=\"cd-trigger\">" + house.getTitle() + "</a></li>");
+				}
+			}
+		%>
 	</ul>
 
 	<!-- inside this div is the pop up window to view the house with its details and buttons-->
