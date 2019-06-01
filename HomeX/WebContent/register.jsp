@@ -22,12 +22,33 @@
 <script src="js/validate.js"></script>
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+<%
+	Cookie cRole = Manage.getCookie(request, "Role");
+	String Role = null;
+
+	if (null == cRole) {
+		Manage.setCookie(request, response, "Role", "visitor");
+		Role = "visitor";
+	} else
+		Role = cRole.getValue();
+	if (Role.equals("visitor")) {
+		Manage.setCookie(request, response, "Redirect", "login");
+	} else if (Role.equals("user")) {
+		response.sendRedirect("index.jsp");
+	} else if (Role.equals("administrator")) {
+		response.sendRedirect("admin.jsp");
+	}
+%>
+
 <script>
 	$(function() {
-		$("#header").load("navbar.jsp");
+		var Role = "<%=Role%>"
+		if (Role == "visitor")
+			$("#header").load("navbar.jsp");
+		else
+			$("#header").load("navbar.after.jsp");
 	});
-</script>
-<script>
 	$("#register").validate();
 </script>
 
@@ -35,17 +56,6 @@
 <div id="header"></div>
 
 <body>
-
-	<%
-		Cookie cRole = Manage.getCookie(request, "Role");
-		if (null == cRole || cRole.getValue().equals("visitor")) {
-			Manage.setCookie(request, response, "Redirect", "login");
-		} else if (cRole.getValue().equals("user")) {
-			response.sendRedirect("index.jsp");
-		} else if (cRole.getValue().equals("administrator")) {
-			response.sendRedirect("admin.jsp");
-		}
-	%>
 
 	<div id="wrapper">
 		<div id="loginWindow">

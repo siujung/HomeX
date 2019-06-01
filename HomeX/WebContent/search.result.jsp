@@ -23,11 +23,28 @@
 <!-- Modernizr -->
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+<%
+	Cookie cRole = Manage.getCookie(request, "Role");
+	String Role = null;
+
+	if (null == cRole) {
+		Manage.setCookie(request, response, "Role", "visitor");
+		Role = "visitor";
+	} else
+		Role = cRole.getValue();
+%>
+
 <script>
 	$(function() {
-		$("#header").load("navbar.after.html");
+		var Role = "<%=Role%>"
+		if (Role == "visitor")
+			$("#header").load("navbar.jsp");
+		else
+			$("#header").load("navbar.after.jsp");
 	});
 </script>
+
 </head>
 <div id="header"></div>
 

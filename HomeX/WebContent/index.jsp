@@ -38,31 +38,46 @@
 <link
 	href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
-
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script>
-	$(function() {
-		$("#header").load("navbar.jsp");
-	});
-</script>
+
 </head>
 
 <div id="header"></div>
 
 <body>
+
+	<%
+		Cookie cRedirect = Manage.getCookie(request, "Redirect");
+
+		if (null == cRedirect) {
+			Manage.setCookie(request, response, "Redirect", "search.result");
+		}
+
+		Cookie cRole = Manage.getCookie(request, "Role");
+		String Role = null;
+
+		if (null == cRole) {
+			Manage.setCookie(request, response, "Role", "visitor");
+			Role = "visitor";
+		} else
+			Role = cRole.getValue();
+	%>
+
+	<script>
+	$(function() {
+		var Role = "<%=Role%>"
+			if (Role == "visitor")
+				$("#header").load("navbar.jsp");
+			else
+				$("#header").load("navbar.after.jsp");
+		});
+	</script>
+
 	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
 		<div class="wrapper wrapper--w1070">
 			<div class="card card-7">
 				<div class="card-body">
 					<form class="form" method="POST" action="SearchServlet">
-						<%
-							Cookie cRedirect = Manage.getCookie(request, "Redirect");
-							if (null == cRedirect) {
-								Manage.setCookie(request, response, "Redirect", "search.result");
-								Manage.setCookie(request, response, "Role", "visitor");
-							}
-						%>
-
 						<div class="input-group input--large">
 							<label class="label">Location</label> <input
 								class="input--style-1" type="text" placeholder="Address"
