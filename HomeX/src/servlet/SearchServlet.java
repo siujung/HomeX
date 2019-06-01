@@ -57,10 +57,10 @@ public class SearchServlet extends HttpServlet {
 				break;
 			}
 		} catch (ParseException exception) {
-			System.out.println(exception);
+			exception.printStackTrace();
 		}
 
-		if (redirect.equals("houseList")) {
+		if (redirect.equals("search.result")) {
 			House housePattern = new House();
 			String[] constraintPattern = null;
 			String[] servicePattern = null;
@@ -111,12 +111,6 @@ public class SearchServlet extends HttpServlet {
 			houseResult = administrator.getHouse(housePattern);
 			request.setAttribute("houseResult", houseResult);
 			NextPage = "/search.result.jsp";
-		} else if (redirect.equals("houseView")) {
-			int houseId = (int) request.getAttribute("houseId");
-			House houseRedirect = administrator.getHouse(houseId);
-
-			request.setAttribute("houseRedirect", houseRedirect);
-			NextPage = "/view.property.jsp";
 		}
 
 		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher(NextPage);

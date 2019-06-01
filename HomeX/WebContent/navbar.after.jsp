@@ -12,19 +12,19 @@
         <span class="navbar-toggle" id="js-navbar-toggle">
             <i class="fas fa-bars"></i>
         </span>
-    <a href="#" class="logo">logo</a>
+    <a href="index.jsp" class="logo">logo</a>
     <ul class="main-nav" id="js-menu">
         <li>
-            <a href="index.html" class="nav-links">Find Home</a>
+            <a href="index.jsp" class="nav-links">Find Home</a>
         </li>
         <li>
-            <a href="contact.us.html" class="nav-links">Contact Us</a>
+            <a href="contact.us.jsp" class="nav-links">Contact Us</a>
         </li>
         <li>
-            <a href="profile.html" class="nav-links">Profile</a>
+            <a href="profile.jsp" class="nav-links">Profile</a>
         </li>
         <li>
-            <a href="index.html" class="nav-links">Logout</a>
+            <a href="index.jsp" class="nav-links">Logout</a>
         </li>
     </ul>
 </nav>

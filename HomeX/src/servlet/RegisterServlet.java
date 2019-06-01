@@ -1,11 +1,17 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bean.User;
+import cookie.Manage;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -17,12 +23,37 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		String redirect = Manage.getCookie(request, "Redirect").getValue();
+		String NextPage = "/index.jsp";
+
+		if (redirect.equals("login")) {
+			User user = null;
+			String username = request.getParameter("email");
+			String password = request.getParameter("password");
+
+			try {
+				if (null == User.get(username)) {
+					Manage.setCookie(request, response, "Username", username);
+					Manage.setCookie(request, response, "Role", "user");
+
+					user = new User(true);
+					user.setUsername(username);
+					user.setEmail(username);
+					user.setPassword(password);
+					user.set();
+				}
+			} catch (ParseException exception) {
+				exception.printStackTrace();
+			}
+		}
+
+		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher(NextPage);
+		Dispatcher.include(request, response);
 	}
 
 }

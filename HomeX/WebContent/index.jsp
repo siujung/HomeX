@@ -42,7 +42,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script>
 	$(function() {
-		$("#header").load("navbar.html");
+		$("#header").load("navbar.jsp");
 	});
 </script>
 </head>
@@ -58,10 +58,11 @@
 						<%
 							Cookie cRedirect = Manage.getCookie(request, "Redirect");
 							if (null == cRedirect) {
-								Manage.setCookie(request, response, "Redirect", "houseList");
+								Manage.setCookie(request, response, "Redirect", "search.result");
 								Manage.setCookie(request, response, "Role", "visitor");
 							}
 						%>
+
 						<div class="input-group input--large">
 							<label class="label">Location</label> <input
 								class="input--style-1" type="text" placeholder="Address"

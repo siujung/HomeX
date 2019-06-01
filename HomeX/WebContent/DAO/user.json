@@ -1,1 +1,33 @@
-[{"id":1000,"username":"admin","password":"123456","isAdministrator":true},{"id":10000,"username":"host","password":"123456","isAdministrator":false,"birthdate":"2000-01-01","email":"host@isep.fr","house":[1000000,1000001],"sex":"female","telephone":"+33666666666"},{"id":10001,"username":"tenant","password":"123456","isAdministrator":false,"birthdate":"2001-01-01","email":"tenant@isep.fr","house":[],"sex":"male","telephone":"+33666666667"}]
+[
+    {
+        "id": 1000,
+        "username": "admin",
+        "password": "123456",
+        "isAdministrator": true
+    },
+    {
+        "id": 10000,
+        "username": "host",
+        "password": "123456",
+        "isAdministrator": false,
+        "birthdate": "2000-01-01",
+        "email": "host@isep.fr",
+        "house": [
+            1000000,
+            1000001
+        ],
+        "sex": "female",
+        "telephone": "+33666666666"
+    },
+    {
+        "id": 10001,
+        "username": "tenant",
+        "password": "123456",
+        "isAdministrator": false,
+        "birthdate": "2001-01-01",
+        "email": "tenant@isep.fr",
+        "house": [],
+        "sex": "male",
+        "telephone": "+33666666667"
+    }
+]

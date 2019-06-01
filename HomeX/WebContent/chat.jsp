@@ -16,7 +16,7 @@
 
 <script>
         $(function(){
-            $("#header").load("navbar.after.html");
+            $("#header").load("navbar.after.jsp");
         });
  </script>
  

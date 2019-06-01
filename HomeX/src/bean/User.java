@@ -15,6 +15,7 @@ import java.util.TreeSet;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -99,12 +100,29 @@ public class User {
     public static User get(String username, String password) throws IOException, ParseException {
         ObjectMapper userMapper = new ObjectMapper();
         JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
-
         User newUser = new User();
 
         for (JsonNode user : userNode) {
             if (user.path("username").textValue().equals(username)
                     && user.path("password").textValue().equals(password)) {
+                newUser = get(user);
+
+                return newUser;
+            }
+        }
+
+        return null;
+    }
+
+    // if(isUserExisted) return User;
+    // else return null;
+    public static User get(String username) throws IOException, ParseException {
+        ObjectMapper userMapper = new ObjectMapper();
+        JsonNode userNode = userMapper.readTree(new File(System.getProperty("user.dir") + "/WebContent/DAO/user.json"));
+        User newUser = new User();
+
+        for (JsonNode user : userNode) {
+            if (user.path("username").textValue().equals(username)) {
                 newUser = get(user);
 
                 return newUser;
