@@ -1,253 +1,157 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="cookie.Manage, java.net.*"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>chat</title>
-
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="css/message.css" rel="stylesheet">
-
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-	type="text/css" rel="stylesheet">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-
+<%@ page language="java" import="java.util.*, cookie.Manage"  pageEncoding="UTF-8"%>
 <%
-	Cookie cRole = Manage.getCookie(request, "Role");
-	String Role = null;
-
-	if (null == cRole) {
-		Manage.setCookie(request, response, "Role", "visitor");
-		response.sendRedirect("index.jsp");
-		Role = "visitor";
-	} else
-		Role = cRole.getValue();
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<script>
-	$(function() {
-		var Role = "<%=Role%>"
-		if (Role == "visitor")
-			$("#header").load("navbar.jsp");
-		else
-			$("#header").load("navbar.after.jsp");
-	});
-</script>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Message</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+<!-- UM相关资源 -->
+<link href="assets/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="assets/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="assets/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="assets/umeditor/lang/zh-cn/zh-cn.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'
+	rel='stylesheet' type='text/css'>
+
+
+<link
+	href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	
 </head>
 <div id="header"></div>
 
 
 <body>
-	<div class="container">
-
-		<div class="page-wrapper bg-color-1">
-			<header>
-				<h1 class=" text-center">Messaging</h1>
-			</header>
-			<div class="messaging">
-				<div class="inbox_msg">
-					<div class="inbox_people">
-						<div class="headind_srch">
-							<div class="recent_heading">
-								<h4>Recent</h4>
-							</div>
-							<div class="srch_bar">
-								<div class="stylish-input-group">
-									<input type="text" class="search-bar" placeholder="Search">
-									<span class="input-group-addon">
-										<button type="button">
-											<i class="fa fa-search" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="inbox_chat">
-							<div class="chat_list active_chat">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-							<div class="chat_list">
-								<div class="chat_people">
-									<div class="chat_img">
-										<img src="https://ptetutorials.com/images/user-profile.png"
-											alt="sunil">
-									</div>
-									<div class="chat_ib">
-										<h5>
-											Sunil Rajput <span class="chat_date">Dec 25</span>
-										</h5>
-										<p>Test, which is a new approach to have all solutions
-											astrology under one roof.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mesgs">
-						<div class="msg_history">
-							<div class="incoming_msg">
-								<div class="incoming_msg_img">
-									<img src="https://ptetutorials.com/images/user-profile.png"
-										alt="sunil">
-								</div>
-								<div class="received_msg">
-									<div class="received_withd_msg">
-										<p>Test which is a new approach to have all solutions</p>
-										<span class="time_date"> 11:01 AM | June 9</span>
-									</div>
-								</div>
-							</div>
-							<div class="outgoing_msg">
-								<div class="sent_msg">
-									<p>Test which is a new approach to have all solutions</p>
-									<span class="time_date"> 11:01 AM | June 9</span>
-								</div>
-							</div>
-							<div class="incoming_msg">
-								<div class="incoming_msg_img">
-									<img src="https://ptetutorials.com/images/user-profile.png"
-										alt="sunil">
-								</div>
-								<div class="received_msg">
-									<div class="received_withd_msg">
-										<p>Test, which is a new approach to have</p>
-										<span class="time_date"> 11:01 AM | Yesterday</span>
-									</div>
-								</div>
-							</div>
-							<div class="outgoing_msg">
-								<div class="sent_msg">
-									<p>Apollo University, Delhi, India Test</p>
-									<span class="time_date"> 11:01 AM | Today</span>
-								</div>
-							</div>
-							<div class="incoming_msg">
-								<div class="incoming_msg_img">
-									<img src="https://ptetutorials.com/images/user-profile.png"
-										alt="sunil">
-								</div>
-								<div class="received_msg">
-									<div class="received_withd_msg">
-										<p>We work directly with our designers and suppliers, and
-											sell direct to you, which means quality, exclusive products,
-											at a price anyone can afford.</p>
-										<span class="time_date"> 11:01 AM | Today</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="type_msg">
-							<div class="input_msg_write">
-								<input type="text" class="write_msg"
-									placeholder="Type a message" />
-								<button class="msg_send_btn" type="button">
-									<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
+		<div class="wrapper wrapper--w1070">
+			<div class="card card-7">
+				<div class="card-body">
+	<div id="main">
+	<div id="ChatBox" class="am-g am-g-fixed" >
+		<div class="am-u-lg-12" style="height:400px;border:1px solid #999;overflow-y:scroll;">
+	
+		<ul id="chatContent" class="am-comments-list am-comments-list-flip">
+			<li id="msgtmp" class="am-comment" style="display:none;">
+			    <a href="">
+			        <img class="am-comment-avatar" src="assets/images/other.jpg" alt=""/>
+			    </a>
+			    <div class="am-comment-main" >
+			        <header class="am-comment-hd">
+			            <div class="am-comment-meta">
+			              <a ff="nickname" href="#link-to-user" class="am-comment-author">Somebody</a>
+			              <time ff="msgdate" datetime="" title="">2019-6-12 15:30</time>
+			            </div>
+			        </header>
+			     <div ff="content" class="am-comment-bd">Content</div>
+			    </div>
+			</li>
+		</ul>
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+	<!-- Send -->
+	<div id="EditBox" class="am-g am-g-fixed">
+	
+	<script type="text/plain" id="myEditor" style="width:100%;height:140px;"></script>
+	<button id="send" type="button" class="msg_send_btn">Send</button>
+	</div>
+	</div>
 			</div>
 		</div>
-	</div>
-	<script src="css/message.css"></script>
+
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jump.js"></script>
+<script type="text/javascript">
+
+
+
+$(function(){
+
+    var um = UM.getEditor('myEditor',{
+    	initialContent:"Text Here...",
+    	autoHeightEnabled:false,
+    	toolbar:[
+            'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+            'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
+            '| justifyleft justifycenter justifyright justifyjustify |',
+            'link unlink | emotion image video  | map'
+        ]
+    });
+    
+    
+    var nickname = "name";
+	var socket = new WebSocket("ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
+    //接收服务器的消息
+    socket.onmessage=function(ev){
+    	var obj = eval(   '('+ev.data+')'   );
+    	addMessage(obj);
+    }
+    
+    $("#send").click(function(){
+    	if (!um.hasContents()) { 
+            um.focus();
+            $('.edui-container').addClass('am-animation-shake');
+            setTimeout("$('.edui-container').removeClass('am-animation-shake')", 1000);
+        } else {
+        	var txt = um.getContent();
+        	var obj = JSON.stringify({
+	    		nickname:nickname,
+	    		content:txt
+	    	});
+            socket.send(obj);
+            um.setContent('');
+            um.focus();
+        }
+    
+    });
+    
+    
+    
+    
+    
+});
+
+//人名nickname，时间date，是否自己isSelf，内容content
+function addMessage(msg){
+
+	var box = $("#msgtmp").clone(); 	//复制一份模板，取名为box
+	box.show();							//设置box状态为显示
+	box.appendTo("#chatContent");		//把box追加到聊天面板中
+	box.find('[ff="nickname"]').html(msg.nickname); //在box中设置昵称
+	box.find('[ff="msgdate"]').html(msg.date); 		//在box中设置时间
+	box.find('[ff="content"]').html(msg.content); 	//在box中设置内容
+	box.addClass(msg.isSelf? 'am-comment-flip':'');	//右侧显示
+	box.addClass(msg.isSelf? 'am-comment-warning':'am-comment-success');//颜色
+	box.css((msg.isSelf? 'margin-left':'margin-right'),"20%");//外边距
+	
+	$("#ChatBox div:eq(0)").scrollTop(999999); 	//滚动条移动至最底部
+	
+}
+
+
+</script>
 
 </body>
 </html>
