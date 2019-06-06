@@ -14,92 +14,70 @@ import javax.servlet.http.HttpSession;
 import control.*;
 import control.Authority.Role;
 
-/**
- * Servlet implementation class AuthServlet
- */
 @WebServlet("/AuthServlet")
 public class AuthServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    
-    public static Authentication authentication;
-    public static Administrator administrator;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AuthServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public static Authentication authentication;
+	public static Administrator administrator;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		//Get method is for Log out
+	public AuthServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Get method is for Log out
 		authentication = null;
 		administrator = null;
 		HttpSession session = request.getSession();
-        session.setAttribute("authentication", authentication);
-        session.setAttribute("administrator", administrator);
+		session.setAttribute("authentication", authentication);
+		session.setAttribute("administrator", administrator);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("login.html");
 		dispatcher.forward(request, response);
-    }
+	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-		 
-		//Post method is for Log in
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Post method is for Log in
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 
-        authentication = new Authentication();
-        boolean loginSuccess = false;
+		boolean loginSuccess = false;
 		try {
-			loginSuccess = authentication.isAuthentic(username, password);
+			authentication = new Authentication(username, password);
+			loginSuccess = authentication.isAuthentic();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        if(loginSuccess){ //if login is successful
-            if(authentication.getUser().isAdministrator()){ //if user is administrator
-            	
-            	try {
+
+		if (loginSuccess) { // if login is successful
+			if (authentication.getUser().isAdministrator()) { // if user is administrator
+
+				try {
 					administrator = new Administrator(Role.administrator);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-            }
-            else { //if user is not administrator
-               try {
-				administrator = new Administrator(Role.user);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else { // if user is not administrator
+				try {
+					administrator = new Administrator(Role.user);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 			}
-            }
-            HttpSession session = request.getSession();
-            session.setAttribute("authentication", authentication);
-            session.setAttribute("administrator", administrator);
-            response.sendRedirect(request.getContextPath() + "/profile.jsp");
-            //dispatcher.include(request, response);
-        }
-        else {
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.html");
-            //Must change to appropriate jsp page upon unsuccessful login
-            //Or send message such as:
-            //  login fail: username and password incorrect
-            dispatcher.forward(request, response);
-        }
+			HttpSession session = request.getSession();
+			session.setAttribute("authentication", authentication);
+			session.setAttribute("administrator", administrator);
+			response.sendRedirect(request.getContextPath() + "/profile.jsp");
+			// dispatcher.include(request, response);
+		} else {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.html");
+			// Must change to appropriate jsp page upon unsuccessful login
+			// Or send message such as:
+			// login fail: username and password incorrect
+			dispatcher.forward(request, response);
+		}
 	}
 
 }
