@@ -50,7 +50,6 @@
 
 <body>
 	<%
-		Cookie cRedirect = Manage.getCookie(request, "Redirect");
 		Set<House> houseResult = (HashSet<House>) request.getAttribute("houseResult");
 	%>
 

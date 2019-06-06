@@ -33,9 +33,7 @@
 		Role = "visitor";
 	} else
 		Role = cRole.getValue();
-	if (Role.equals("visitor")) {
-		Manage.setCookie(request, response, "Redirect", "login");
-	} else if (Role.equals("user")) {
+	if (Role.equals("user")) {
 		response.sendRedirect("index.jsp");
 	} else if (Role.equals("administrator")) {
 		response.sendRedirect("admin.jsp");

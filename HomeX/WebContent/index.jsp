@@ -59,12 +59,6 @@
 			Manage.setCookie(request, response, "Database", "true");
 		}
 
-		Cookie cRedirect = Manage.getCookie(request, "Redirect");
-
-		if (null == cRedirect) {
-			Manage.setCookie(request, response, "Redirect", "search.result");
-		}
-
 		Cookie cRole = Manage.getCookie(request, "Role");
 		String Role = null;
 
