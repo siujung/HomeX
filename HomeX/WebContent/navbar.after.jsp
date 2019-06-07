@@ -24,7 +24,7 @@
             <a href="profile.jsp" class="nav-links">Profile</a>
         </li>
         <li>
-            <a href="index.jsp" class="nav-links">Logout</a>
+            <a method="GET" href="AuthServlet" class="nav-links">Logout</a>
         </li>
     </ul>
 </nav>

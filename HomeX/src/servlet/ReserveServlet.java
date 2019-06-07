@@ -68,6 +68,7 @@ public class ReserveServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Authentication authentication = (Authentication)session.getAttribute("authentication");
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
         int tenant = authentication.getUser().getId();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -96,7 +97,10 @@ public class ReserveServlet extends HttpServlet {
 	        order.setStart(start);
 	        order.setEnd(end);
 
-	        Order.set(order);
+	        //Order.set(order);
+	        administrator.setOrder(order);
+	        AuthServlet.administrator = administrator;
+	        session.setAttribute("administrator", administrator);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

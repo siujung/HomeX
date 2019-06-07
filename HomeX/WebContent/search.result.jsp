@@ -96,7 +96,7 @@
 			<p id="service">service</p>
 			<p id="address">address</p>
 			<ul class="cd-item-action">
-				<li><button class="register">Register</button></li>
+				<li><button method="GET" href="AuthServlet" class="register">Register</button></li>
 			</ul>
 
 		</div>

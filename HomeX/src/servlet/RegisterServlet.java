@@ -9,8 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.User;
+import control.Administrator;
+import control.Authentication;
+import control.Authority.Role;
 import cookie.Manage;
 
 @WebServlet("/RegisterServlet")
@@ -48,6 +52,18 @@ public class RegisterServlet extends HttpServlet {
 			exception.printStackTrace();
 		}
 
+		try {
+			AuthServlet.authentication = new Authentication(username, password);
+			AuthServlet.administrator = new Administrator(Role.user);
+			AuthServlet.administrator.setId(user.getId());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute("authentication", AuthServlet.authentication);
+		session.setAttribute("administrator", AuthServlet.administrator);
+		
 		RequestDispatcher Dispatcher = getServletContext().getRequestDispatcher(NextPage);
 		Dispatcher.include(request, response);
 	}
