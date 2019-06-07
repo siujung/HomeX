@@ -15,6 +15,10 @@ public class Authentication {
     public Authentication(String username, String password) throws IOException, ParseException {
         this.user = User.get(username, password);
     }
+    
+    public Authentication(String username) throws IOException, ParseException{
+    	this.user = User.get(username);
+    }
 
     public static boolean isAuthentic(String username, String password) throws IOException, ParseException {
         if (User.get(username, password).equals(null))

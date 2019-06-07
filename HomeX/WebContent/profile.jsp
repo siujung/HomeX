@@ -106,7 +106,7 @@
 		<div class="wrapper wrapper--w1070">
 			<div class="card card-7">
 				<div class="card-body">
-					<a class="btn-submit" type="submit" href="new.property.html">New
+					<a class="btn-submit" type="submit" href="new.property.jsp">New
 						Housing</a>
 				</div>
 			</div>

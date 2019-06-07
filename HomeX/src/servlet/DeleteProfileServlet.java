@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import bean.User;
 import control.Administrator;
 import control.Authentication;
+import cookie.Manage;
 
 /**
  * Servlet implementation class DeleteProfileServlet
@@ -47,7 +48,7 @@ public class DeleteProfileServlet extends HttpServlet {
         }
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
-        dispatcher.forward(request, response);
+        dispatcher.include(request, response);
 	}
 
 	/**
@@ -72,7 +73,10 @@ public class DeleteProfileServlet extends HttpServlet {
         while(itr.hasNext()) {
         	houseId = itr.next();
         	if(!administrator.deleteHouse(houseId)) {
-            	errorMessage = "Error occured while deleting houses\n";          	
+            	errorMessage = "Error occured while deleting houses\n";    
+            	request.setAttribute("errorMessage", errorMessage);
+            	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("profile.jsp");
+            	dispatcher.include(request, response);
             }
         	itr.remove();
         }
@@ -85,15 +89,20 @@ public class DeleteProfileServlet extends HttpServlet {
         	errorMessage = errorMessage + "Error occured while deleting user\n";
         	request.setAttribute("errorMessage", errorMessage);
         	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("profile.jsp");
-        	dispatcher.forward(request, response);
+        	dispatcher.include(request, response);
         }
         else {
         	authentication = null;
         	administrator = null;            
             session.setAttribute("authentication", authentication);
             session.setAttribute("administrator", administrator);
+            
+            Manage.setCookie(request, response, "Username", null);
+    		Manage.setCookie(request, response, "Role", "visitor");
+    		Manage.setCookie(request, response, "Id", null);
+            
     		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("login.html");
-    		dispatcher.forward(request, response);
+    		dispatcher.include(request, response);
         }
         
 	}

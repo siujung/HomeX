@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import bean.User;
 import bean.House;
 import control.Administrator;
 import control.Authentication;
+import control.Authority.Role;
 
 /**
  * Servlet implementation class AddHomeServlet
@@ -63,7 +65,35 @@ public class AddHomeServlet extends HttpServlet {
         Administrator administrator = (Administrator)session.getAttribute("administrator");
    
         User user = authentication.getUser();
-        House house = new House();
+        
+        boolean isNew = true;        
+        House house = new House(isNew);
+        
+        String address = request.getParameter("address");
+        house.setHost(user.getId());
+        house.setAvailable(true);
+        house.setAddress(address);
+        //administrator.setId(user.getId());
+        //administrator.setHouse(house);
+        house.set();
+        
+        user.getHouse().add(house.getId());
+        authentication.setUser(user);
+        
+        try {
+			administrator = new Administrator(Role.user);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        AuthServlet.authentication = authentication;
+        AuthServlet.administrator = administrator;
+        
+        session.setAttribute("authentication", authentication);
+        session.setAttribute("Administrator", administrator);
+
+        response.sendRedirect(request.getContextPath() + "/profile.jsp");
 	}
 
 }

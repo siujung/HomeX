@@ -63,7 +63,7 @@
 				</p>
 				<h1>Login</h1>
 			</div>
-			<form class="form" method="POST" action="#">
+			<form class="form" method="POST" action="AuthServlet">
 				<label for="fname">User Email</label> <input
 					style="background: #fab1a0" type="text" id="fname" name="useremail"
 					placeholder="Your email"> <label for="lname">Password</label>

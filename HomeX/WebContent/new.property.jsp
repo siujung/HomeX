@@ -93,7 +93,7 @@ img {
 		<div class="wrapper wrapper--w1070">
 			<div class="card card-7">
 				<div class="card-body">
-					<form class="form" method="POST" action="#">
+					<form class="form" method="POST" action="AddHomeServlet">
 
 						<!-- location input-->
 						<div class="input-group input--large">
