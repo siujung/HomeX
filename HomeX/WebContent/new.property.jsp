@@ -144,8 +144,8 @@ img {
 								</h3>
 								<div class="control-group">
 									<div>
-										<input class="input-check" type="checkbox" id="check1" /> <label
-											for="check1">
+										<input class="input-check" type="checkbox" name="pets" id="pets" value="pets"/> <label
+											for="pets">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Keep Pets
@@ -153,8 +153,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check2" /> <label
-											for="check2">
+										<input class="input-check" type="checkbox" name="plants" id="plants" value="plants"/> <label
+											for="plants">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Watering Plants
@@ -162,8 +162,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check3" /> <label
-											for="check3">
+										<input class="input-check" type="checkbox" name="clean" id="clean" value="clean"/> <label
+											for="clean">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Clean the Place
@@ -179,8 +179,8 @@ img {
 								</h3>
 								<div class="control-group">
 									<div>
-										<input class="input-check" type="checkbox" id="check9" /> <label
-											for="check9">
+										<input class="input-check" type="checkbox" name="noSmoking" id="noSmoking" value="noSmoking"/> <label
+											for="noSmoking">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> No Smoking
@@ -188,8 +188,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check10" /> <label
-											for="check10">
+										<input class="input-check" type="checkbox" name="noNoise" id="noNoise" value="noNoise"/> <label
+											for="noNoise">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> No Noise ( After 23h )
@@ -197,8 +197,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check11" /> <label
-											for="check11">
+										<input class="input-check" type="checkbox" name="maxChildren" id="maxChildren" value="maxChildren"/> <label
+											for="maxChildren">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Max 2 Children
@@ -206,8 +206,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check12" /> <label
-											for="check12">
+										<input class="input-check" type="checkbox" name="noPets" id="noPets" value="noPets"/> <label
+											for="noPets">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> No Pets
@@ -223,8 +223,8 @@ img {
 								</h3>
 								<div class="control-group">
 									<div>
-										<input class="input-check" type="checkbox" id="check117" /> <label
-											for="check117">
+										<input class="input-check" type="checkbox" id="parking" /> <label
+											for="parking">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Parking
@@ -232,8 +232,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check18" /> <label
-											for="check18">
+										<input class="input-check" type="checkbox" id="bbq" /> <label
+											for="bbq">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> BBQ place
@@ -241,8 +241,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check19" /> <label
-											for="check19">
+										<input class="input-check" type="checkbox" id="swimPool" /> <label
+											for="swimPool">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> Swim Pool
@@ -250,8 +250,8 @@ img {
 									</div>
 
 									<div>
-										<input class="input-check" type="checkbox" id="check20" /> <label
-											for="check20">
+										<input class="input-check" type="checkbox" id="gym" /> <label
+											for="gym">
 											<div>
 												<i class="fa fa-check"></i>
 											</div> GYM
