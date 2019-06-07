@@ -37,8 +37,7 @@
 
 <script>
 	$(function() {
-		var Role = "<%=Role%>
-	"
+		var Role = "<%=Role%>"
 		if (Role == "visitor")
 			$("#header").load("navbar.jsp");
 		else
