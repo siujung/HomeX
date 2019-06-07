@@ -234,20 +234,29 @@ public class Administrator {
 					match.remove(search);
 					continue;
 				}
-				if (pattern.getAddress() == null
+				if (search.getAddress() == null && pattern.getAddress() != null) {
+					match.remove(search);
+					continue;
+				} else if (pattern.getAddress() == null
 						|| search.getAddress().toLowerCase().contains(pattern.getAddress().toLowerCase())) {
 					match.add(search);
 				} else {
 					match.remove(search);
 					continue;
 				}
-				if (constraint == null || search.getConstraint().keySet().containsAll(constraint)) {
+				if (search.getConstraint() == null && constraint != null && !constraint.isEmpty()) {
+					match.remove(search);
+					continue;
+				} else if (constraint == null || search.getConstraint().keySet().containsAll(constraint)) {
 					match.add(search);
 				} else {
 					match.remove(search);
 					continue;
 				}
-				if (service == null || search.getService().keySet().containsAll(service)) {
+				if (search.getService() == null && service != null && !service.isEmpty()) {
+					match.remove(search);
+					continue;
+				} else if (service == null || search.getService().keySet().containsAll(service)) {
 					match.add(search);
 				} else {
 					match.remove(search);
@@ -265,7 +274,10 @@ public class Administrator {
 					match.remove(search);
 					continue;
 				}
-				if (pattern.getTitle() == null
+				if (search.getTitle() == null && pattern.getTitle() != null) {
+					match.remove(search);
+					continue;
+				} else if (pattern.getTitle() == null
 						|| search.getTitle().toLowerCase().contains(pattern.getTitle().toLowerCase())) {
 					match.add(search);
 				} else {
@@ -325,6 +337,15 @@ public class Administrator {
 		case all:
 			this.house.put(house.getId(), house);
 			house.set();
+			if (house.getHost() != 0) {
+				User host = user.get(house.getHost());
+				Set<Integer> newHouse = host.getHouse();
+
+				newHouse.add(house.getId());
+				host.setHouse(newHouse);
+				user.put(host.getId(), host);
+				host.set();
+			}
 			return true;
 		case self:
 			if (house.getHost() != this.id)
@@ -332,6 +353,15 @@ public class Administrator {
 			else {
 				this.house.put(house.getId(), house);
 				house.set();
+				if (house.getHost() != 0) {
+					User host = user.get(house.getHost());
+					Set<Integer> newHouse = host.getHouse();
+
+					newHouse.add(house.getId());
+					host.setHouse(newHouse);
+					user.put(host.getId(), host);
+					host.set();
+				}
 				return true;
 			}
 		default:
