@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -162,6 +163,48 @@ public class House {
         }
 
         return houseMap;
+    }
+
+    public static String getHTML(int id) throws IOException, ParseException {
+        House house = get(id);
+
+        if (null == house)
+            return null;
+        else {
+            String html = "<h2>" + house.title + "</h2>" + "<p>AVAILABLE = " + house.isAvailable + "</p>";
+
+            if (!house.constraint.isEmpty())
+                html += "<p><b>Constraints</b></p>";
+            for (Entry<Constraint, String> constraint : house.constraint.entrySet()) {
+                html += "<p>+" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
+            }
+            if (!house.service.isEmpty())
+                html += "<p><b>Services</b></p>";
+            for (Entry<Service, String> service : house.service.entrySet()) {
+                html += "<p>+" + service.getKey().toString() + " = " + service.getValue() + "</p>";
+            }
+            html += "<p>ADDRESS = " + house.address + "</p>";
+
+            return html;
+        }
+    }
+
+    public String getHTML() {
+        String html = "<h2>" + this.title + "</h2>" + "<p>AVAILABLE = " + this.isAvailable + "</p>";
+
+        if (!this.constraint.isEmpty())
+            html += "<p><b>Constraints</b></p>";
+        for (Entry<Constraint, String> constraint : this.constraint.entrySet()) {
+            html += "<p>+" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
+        }
+        if (!this.service.isEmpty())
+            html += "<p><b>Services</b></p>";
+        for (Entry<Service, String> service : this.service.entrySet()) {
+            html += "<p>+" + service.getKey().toString() + " = " + service.getValue() + "</p>";
+        }
+        html += "<p>ADDRESS = " + this.address + "</p>";
+
+        return html;
     }
 
     public static void set(House house) throws IOException {

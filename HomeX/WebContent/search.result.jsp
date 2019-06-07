@@ -62,8 +62,9 @@
 		<%
 			if (houseResult != null) {
 				for (House house : houseResult) {
-					out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getId()
+					out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getHTML()
 							+ "\"><a href=\"#0\" class=\"cd-trigger\">" + house.getTitle() + "</a></li>");
+					System.out.println(house.getHTML());
 				}
 			}
 		%>
@@ -86,20 +87,7 @@
 			</div>
 		</div>
 
-		<div class="cd-item-info">
-			<h2 id="title">Title</h2>
-			<p id="id">id</p>
-			<p id="host">host</p>
-			<p id="tenant">tenant</p>
-			<p id="isAvailable">isAvailable</p>
-			<p id="constraint">constraint</p>
-			<p id="service">service</p>
-			<p id="address">address</p>
-			<ul class="cd-item-action">
-				<li><button class="register">Register</button></li>
-			</ul>
-
-		</div>
+		<div id="info" class="cd-item-info"></div>
 		<a href="#0" class="cd-close">Close</a>
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>

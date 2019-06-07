@@ -8,9 +8,9 @@ jQuery(document).ready(function ($) {
     $('.cd-trigger').on('click', function (event) {
         var selectedImage = $(this).parent('.cd-item').children('img'),
             slectedImageUrl = selectedImage.attr('src');
-        var selectedId = selectedImage[0].alt;
+        var selectedInfo = selectedImage[0].alt;
 
-        $('#id').html(selectedId);
+        $('#info').html(selectedInfo+"<ul class=\"cd-item-action\"><li><button class=\"register\">Register</button></li></ul>");
         $('body').addClass('overlay-layer');
         animateQuickView(selectedImage, sliderFinalWidth, maxQuickWidth, 'open');
 
