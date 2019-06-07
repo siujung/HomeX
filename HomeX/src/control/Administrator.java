@@ -337,6 +337,15 @@ public class Administrator {
 		case all:
 			this.house.put(house.getId(), house);
 			house.set();
+			if (house.getHost() != 0) {
+				User host = user.get(house.getHost());
+				Set<Integer> newHouse = host.getHouse();
+
+				newHouse.add(house.getId());
+				host.setHouse(newHouse);
+				user.put(host.getId(), host);
+				host.set();
+			}
 			return true;
 		case self:
 			if (house.getHost() != this.id)
@@ -344,6 +353,15 @@ public class Administrator {
 			else {
 				this.house.put(house.getId(), house);
 				house.set();
+				if (house.getHost() != 0) {
+					User host = user.get(house.getHost());
+					Set<Integer> newHouse = host.getHouse();
+
+					newHouse.add(house.getId());
+					host.setHouse(newHouse);
+					user.put(host.getId(), host);
+					host.set();
+				}
 				return true;
 			}
 		default:
