@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="cookie.Manage, java.net.*"%>
+	pageEncoding="ISO-8859-1"
+	import="cookie.Manage, bean.House, java.net.*, control.Authentication"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -55,30 +56,22 @@
 		</header>
 		<!-- every li tag represent a picture with its quick view button-->
 		<ul class="cd-items ul-container">
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
+			<%
+				Authentication authentication = (Authentication) session.getAttribute("authentication");
 
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
+				if (!authentication.isLoggedIn()) {
+					response.sendRedirect(request.getContextPath() + "/login.jsp");
+				}
+				if (authentication.getUser().getHouse() != null && !authentication.getUser().getHouse().isEmpty()) {
+					for (Integer houseId : authentication.getUser().getHouse()) {
+						House house = House.get(houseId);
 
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
+						out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getHTML()
+								+ "\"><a class=\"cd-trigger\">" + house.getTitle() + "</a></li>");
+						System.out.println(house.getHTML());
+					}
+				}
+			%>
 		</ul>
 	</div>
 
@@ -89,15 +82,6 @@
 
 		<!-- every li tag represent a picture with its quick view button-->
 		<ul class="cd-items ul-container">
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
-			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
-				<a href="#0" class="cd-trigger">Quick View</a></li>
-
 			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
 				<a href="#0" class="cd-trigger">Quick View</a></li>
 		</ul>
@@ -132,15 +116,10 @@
 			</div>
 		</div>
 
-		<div class="cd-item-info">
-			<h2>Property Title</h2>
-			<p>Description</p>
-
-			<ul class="cd-item-action">
-				<li><button class="register">Cancel</button></li>
-			</ul>
-
-		</div>
+		<div id="info" class="cd-item-info"></div>
+		<ul class="cd-item-action">
+			<li><button class="register">Cancel</button></li>
+		</ul>
 		<a href="#0" class="cd-close">Close</a>
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>

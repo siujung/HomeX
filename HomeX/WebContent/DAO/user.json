@@ -16,6 +16,7 @@
             1000000,
             1000001
         ],
+        "order": [],
         "sex": "female",
         "telephone": "+33666666666"
     },
@@ -27,6 +28,9 @@
         "birthdate": "2001-01-01",
         "email": "tenant@isep.fr",
         "house": [],
+        "order": [
+            1000000
+        ],
         "sex": "male",
         "telephone": "+33666666667"
     }
