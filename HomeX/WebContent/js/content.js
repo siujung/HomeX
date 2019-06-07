@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
             slectedImageUrl = selectedImage.attr('src');
         var selectedInfo = selectedImage[0].alt;
 
-        $('#info').html(selectedInfo+"<ul class=\"cd-item-action\"><li><button class=\"register\">Register</button></li></ul>");
+        $('#info').html(selectedInfo);
         $('body').addClass('overlay-layer');
         animateQuickView(selectedImage, sliderFinalWidth, maxQuickWidth, 'open');
 

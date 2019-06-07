@@ -64,7 +64,6 @@
 				for (House house : houseResult) {
 					out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getHTML()
 							+ "\"><a href=\"#0\" class=\"cd-trigger\">" + house.getTitle() + "</a></li>");
-					System.out.println(house.getHTML());
 				}
 			}
 		%>
@@ -88,6 +87,9 @@
 		</div>
 
 		<div id="info" class="cd-item-info"></div>
+		<ul class="cd-item-action">
+			<li><button class="register" method="POST" href="ReserveServlet">Register</button></li>
+		</ul>
 		<a href="#0" class="cd-close">Close</a>
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>
