@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import bean.User;
 import bean.House;
+import bean.House.Constraint;
+import bean.House.Service;
 import control.Administrator;
 import control.Authentication;
 import control.Authority.Role;
@@ -79,23 +83,56 @@ public class AddHomeServlet extends HttpServlet {
         	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/new.property.jsp");
 		   	dispatcher.include(request, response);
         }
+        //Services
+        String pets = request.getParameter("pets");
+        String plants = request.getParameter("plants");
+        String clean = request.getParameter("clean");
         
+        //Constraints
+        String noSmoking = request.getParameter("noSmoking");
+        String noNoise = request.getParameter("noNoise");
+        String maxChildren = request.getParameter("maxChildren");
+        String noPets = request.getParameter("noPets");
+              
         house.setHost(user.getId());
         house.setAvailable(true);
         house.setAddress(address);
-        administrator.setId(user.getId());
+        
+        Map<Service, String> service = new HashMap<>();
+        Map<Constraint, String> constraint = new HashMap<>();             
+        
+        if(!pets.equals("")) {
+        	service.put(Service.pet, pets);
+        }
+        if(!plants.equals("")) {
+        	service.put(Service.plant, plants);
+        }
+        if(!clean.equals("")) {
+        	service.put(Service.clean, clean);
+        }
+        
+        if(!noSmoking.equals("")) {
+        	constraint.put(Constraint.smoke, noSmoking);
+        }
+        if(!noNoise.equals("")) {
+        	constraint.put(Constraint.noise, noNoise);
+        }
+        if(!maxChildren.equals("")) {
+        	constraint.put(Constraint.kid, maxChildren);
+        }
+        if(!noPets.equals("")) {
+        	constraint.put(Constraint.pet, noPets);
+        }
+        
+        house.setService(service);
+        house.setConstraint(constraint);
+        
+        //administrator.setId(user.getId());
         administrator.setHouse(house);
+        authentication.setUser(administrator.getUser(user.getId()));
         //house.set();
         
-        user.getHouse().add(house.getId());
-        authentication.setUser(user);
-        
-        try {
-			administrator = new Administrator(Role.user);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        //authentication.setUser(user);
         
         AuthServlet.authentication = authentication;
         AuthServlet.administrator = administrator;

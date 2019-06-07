@@ -53,7 +53,7 @@ public class AuthServlet extends HttpServlet {
 		boolean loginSuccess = true;
 		try {
 			authentication = new Authentication(username, password);
-			if(authentication == null)
+			if(authentication.getUser() == null)
 				loginSuccess = false;
 		} catch (ParseException e) {
 			e.printStackTrace();
