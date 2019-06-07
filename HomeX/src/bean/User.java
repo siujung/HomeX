@@ -15,7 +15,6 @@ import java.util.TreeSet;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -29,6 +28,7 @@ public class User {
     private int id;
     private Sex sex;
     private Set<Integer> house;
+    private Set<Integer> order;
     private String email;
     private String username;
     private String password;
@@ -150,6 +150,9 @@ public class User {
         for (JsonNode house : user.path("house")) {
             newUser.house.add(house.asInt());
         }
+        for (JsonNode order : user.path("order")) {
+            newUser.order.add(order.asInt());
+        }
         newUser.id = user.path("id").asInt();
         newUser.isAdministrator = user.path("isAdministrator").booleanValue();
         newUser.password = user.path("password").textValue();
@@ -200,6 +203,7 @@ public class User {
         ObjectNode newUserNode = userNodeFactory.objectNode();
         ArrayNode userNode = (ArrayNode) userMapper.readTree(userFile);
         ArrayNode houseNode = userNodeFactory.arrayNode();
+        ArrayNode orderNode = userNodeFactory.arrayNode();
         JsonGenerator userGenerator = userFactory.createGenerator(new FileWriter(userFile));
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -227,6 +231,15 @@ public class User {
         } catch (NullPointerException exception) {
             houseNode.nullNode();
             newUserNode.set("house", houseNode);
+        }
+        try {
+            for (int order : user.order) {
+                orderNode.add(order);
+            }
+            newUserNode.set("order", orderNode);
+        } catch (NullPointerException exception) {
+            orderNode.nullNode();
+            newUserNode.set("order", orderNode);
         }
         try {
             switch (user.sex) {
@@ -291,6 +304,14 @@ public class User {
 
     public void setHouse(Set<Integer> house) {
         this.house = house;
+    }
+
+    public Set<Integer> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Set<Integer> order) {
+        this.order = order;
     }
 
     public String getEmail() {

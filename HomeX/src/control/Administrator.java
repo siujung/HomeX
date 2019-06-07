@@ -89,6 +89,15 @@ public class Administrator {
 			if (null == house.get(id))
 				return false;
 			else {
+				if (this.house.get(id).getHost() != 0) {
+					User host = user.get(this.house.get(id).getHost());
+					Set<Integer> newHouse = host.getHouse();
+
+					newHouse.remove(id);
+					host.setHouse(newHouse);
+					user.put(host.getId(), host);
+					host.set();
+				}
 				this.house.remove(id);
 				House.delete(id);
 				return true;
@@ -99,6 +108,15 @@ public class Administrator {
 			else if (this.house.get(id).getHost() != this.id)
 				return false;
 			else {
+				if (this.house.get(id).getHost() != 0) {
+					User host = user.get(this.house.get(id).getHost());
+					Set<Integer> newHouse = host.getHouse();
+
+					newHouse.remove(id);
+					host.setHouse(newHouse);
+					user.put(host.getId(), host);
+					host.set();
+				}
 				this.house.remove(id);
 				House.delete(id);
 				return true;
@@ -117,6 +135,15 @@ public class Administrator {
 			if (null == order.get(id))
 				return false;
 			else {
+				if (this.order.get(id).getTenant() != 0) {
+					User tenant = user.get(this.order.get(id).getTenant());
+					Set<Integer> newOrder = tenant.getOrder();
+
+					newOrder.remove(id);
+					tenant.setOrder(newOrder);
+					user.put(tenant.getId(), tenant);
+					tenant.set();
+				}
 				this.order.remove(id);
 				Order.delete(id);
 				return true;
@@ -127,6 +154,15 @@ public class Administrator {
 			else if (this.order.get(id).getHost() != this.id && this.order.get(id).getTenant() != this.id)
 				return false;
 			else {
+				if (this.order.get(id).getTenant() != 0) {
+					User tenant = user.get(this.order.get(id).getTenant());
+					Set<Integer> newOrder = tenant.getOrder();
+
+					newOrder.remove(id);
+					tenant.setOrder(newOrder);
+					user.put(tenant.getId(), tenant);
+					tenant.set();
+				}
 				this.order.remove(id);
 				Order.delete(id);
 				return true;
@@ -377,6 +413,15 @@ public class Administrator {
 		case all:
 			this.order.put(order.getId(), order);
 			order.set();
+			if (order.getTenant() != 0) {
+				User tenant = user.get(order.getTenant());
+				Set<Integer> newOrder = tenant.getOrder();
+
+				newOrder.add(order.getId());
+				tenant.setOrder(newOrder);
+				user.put(tenant.getId(), tenant);
+				tenant.set();
+			}
 			return true;
 		case self:
 			if (order.getHost() != this.id && order.getTenant() != this.id)
@@ -384,6 +429,15 @@ public class Administrator {
 			else {
 				this.order.put(order.getId(), order);
 				order.set();
+				if (order.getTenant() != 0) {
+					User tenant = user.get(order.getTenant());
+					Set<Integer> newOrder = tenant.getOrder();
+
+					newOrder.add(order.getId());
+					tenant.setOrder(newOrder);
+					user.put(tenant.getId(), tenant);
+					tenant.set();
+				}
 				return true;
 			}
 		default:
