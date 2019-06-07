@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="cookie.Manage, bean.House, java.net.*, control.Authentication"%>
+	import="cookie.Manage, bean.*, java.net.*, control.Authentication"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -37,7 +37,8 @@
 
 <script>
 	$(function() {
-		var Role = "<%=Role%>"
+		var Role = "<%=Role%>
+	"
 		if (Role == "visitor")
 			$("#header").load("navbar.jsp");
 		else
@@ -84,6 +85,18 @@
 		<ul class="cd-items ul-container">
 			<li class="cd-item"><img src="img/item-1.jpg" alt="Item Preview">
 				<a href="#0" class="cd-trigger">Quick View</a></li>
+
+			<%
+				if (authentication.getUser().getOrder() != null && !authentication.getUser().getOrder().isEmpty()) {
+					for (Integer orderId : authentication.getUser().getOrder()) {
+						House order = House.get(Order.get(orderId).getHouse());
+
+						out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + order.getHTML()
+								+ "\"><a class=\"cd-trigger\">" + order.getTitle() + "</a></li>");
+						System.out.println(order.getHTML());
+					}
+				}
+			%>
 		</ul>
 	</div>
 	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
