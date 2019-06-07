@@ -89,7 +89,6 @@
 
 						out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + order.getHTML()
 								+ "\"><a class=\"cd-trigger\">" + order.getTitle() + "</a></li>");
-						System.out.println(order.getHTML());
 					}
 				}
 			%>
