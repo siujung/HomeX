@@ -39,7 +39,7 @@ public class EditHouseServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             //Must change redirect page to proper login page name
             return;
         }
@@ -68,6 +68,18 @@ public class EditHouseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
         //doGet(request, response);        
 
+        HttpSession session = request.getSession();
+        //Authentication authentication = (Authentication)session.getAttribute("authentication");
+        //User user = authentication.getUser();
+
+        Authentication authentication = (Authentication)session.getAttribute("authentication");
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
+
+		if(authentication == null || !authentication.isLoggedIn()){
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+		
         String houseId = (String)request.getParameter("houseId");
         int id = Integer.parseInt(houseId);
 
@@ -85,11 +97,6 @@ public class EditHouseServlet extends HttpServlet {
         String address = (String)request.getParameter("address");
         String title = (String)request.getParameter("title");
 
-        HttpSession session = request.getSession();
-        //Authentication authentication = (Authentication)session.getAttribute("authentication");
-        //User user = authentication.getUser();
-        
-        Administrator administrator = (Administrator)session.getAttribute("administrator");
         //Problem with data structure?
         //Maybe it will be easier if every user has a field through which he can access his houses
 

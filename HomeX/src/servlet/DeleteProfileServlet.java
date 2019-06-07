@@ -43,7 +43,7 @@ public class DeleteProfileServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -63,6 +63,11 @@ public class DeleteProfileServlet extends HttpServlet {
 		
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         Administrator administrator = (Administrator)session.getAttribute("administrator");
+        
+        if(authentication == null || !authentication.isLoggedIn()){
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
         
         User user = authentication.getUser();
         int id = user.getId();

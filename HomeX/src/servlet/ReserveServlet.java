@@ -41,7 +41,7 @@ public class ReserveServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -56,6 +56,14 @@ public class ReserveServlet extends HttpServlet {
 		// TODO Auto-generated method stub
         //doGet(request, response);
 
+        HttpSession session = request.getSession();
+        Authentication authentication = (Authentication)session.getAttribute("authentication");
+        Administrator administrator = (Administrator)session.getAttribute("administrator");
+        
+        if(authentication == null || !authentication.isLoggedIn()){
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
         //int id = 0;
         //Need a way to make a unique ID for each order
 		String errorMessage = "";
@@ -65,10 +73,7 @@ public class ReserveServlet extends HttpServlet {
 
         String hostId = (String)request.getParameter("host");
         int host = Integer.parseInt(hostId);
-
-        HttpSession session = request.getSession();
-        Authentication authentication = (Authentication)session.getAttribute("authentication");
-        Administrator administrator = (Administrator)session.getAttribute("administrator");
+        
         int tenant = authentication.getUser().getId();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

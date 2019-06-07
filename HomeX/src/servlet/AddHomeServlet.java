@@ -42,7 +42,7 @@ public class AddHomeServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -63,6 +63,11 @@ public class AddHomeServlet extends HttpServlet {
         
         Authentication authentication = (Authentication)session.getAttribute("authentication");
         Administrator administrator = (Administrator)session.getAttribute("administrator");
+        
+        if(authentication == null || !authentication.isLoggedIn()){
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
    
         User user = authentication.getUser();
         
@@ -70,12 +75,17 @@ public class AddHomeServlet extends HttpServlet {
         House house = new House(isNew);
         
         String address = request.getParameter("address");
+        if(address.equals("")) {
+        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/new.property.jsp");
+		   	dispatcher.include(request, response);
+        }
+        
         house.setHost(user.getId());
         house.setAvailable(true);
         house.setAddress(address);
-        //administrator.setId(user.getId());
-        //administrator.setHouse(house);
-        house.set();
+        administrator.setId(user.getId());
+        administrator.setHouse(house);
+        //house.set();
         
         user.getHouse().add(house.getId());
         authentication.setUser(user);

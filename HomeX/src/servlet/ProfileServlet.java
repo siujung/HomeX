@@ -43,7 +43,7 @@ public class ProfileServlet extends HttpServlet {
         Authentication authentication = (Authentication)session.getAttribute("authentication");
 
         if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -57,6 +57,14 @@ public class ProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         //doGet(request, response);
+        HttpSession session = request.getSession();
+        Authentication authentication = (Authentication)session.getAttribute("authentication");
+
+        if(authentication == null || !authentication.isLoggedIn()){
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+		
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthdate = null;
 		try {
@@ -80,8 +88,6 @@ public class ProfileServlet extends HttpServlet {
         String email = (String)request.getParameter("email");
         String telephone = (String)request.getParameter("telephone");
 
-        HttpSession session = request.getSession();
-        Authentication authentication = (Authentication)session.getAttribute("authentication");
         User user = authentication.getUser();
 
         user.setBirthdate(birthdate);
