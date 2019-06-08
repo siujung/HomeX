@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/amazeui.min.js"></script>
-<!-- UM相关资源 -->
+<!-- UM related resources -->
 <link href="assets/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="assets/umeditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="assets/umeditor/umeditor.min.js"></script>
@@ -103,7 +103,7 @@ $(function(){
     
     var nickname = "name";
 	var socket = new WebSocket("ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
-    //接收服务器的消息
+    //receive message from server
     socket.onmessage=function(ev){
     	var obj = eval(   '('+ev.data+')'   );
     	addMessage(obj);
@@ -133,20 +133,20 @@ $(function(){
     
 });
 
-//人名nickname，时间date，是否自己isSelf，内容content
+//nickname，date，isSelf，content
 function addMessage(msg){
 
-	var box = $("#msgtmp").clone(); 	//复制一份模板，取名为box
-	box.show();							//设置box状态为显示
-	box.appendTo("#chatContent");		//把box追加到聊天面板中
-	box.find('[ff="nickname"]').html(msg.nickname); //在box中设置昵称
-	box.find('[ff="msgdate"]').html(msg.date); 		//在box中设置时间
-	box.find('[ff="content"]').html(msg.content); 	//在box中设置内容
-	box.addClass(msg.isSelf? 'am-comment-flip':'');	//右侧显示
-	box.addClass(msg.isSelf? 'am-comment-warning':'am-comment-success');//颜色
-	box.css((msg.isSelf? 'margin-left':'margin-right'),"20%");//外边距
+	var box = $("#msgtmp").clone(); 	//copy template,and name it box
+	box.show();							//set box status as "show"
+	box.appendTo("#chatContent");		//add box in to chatting interface
+	box.find('[ff="nickname"]').html(msg.nickname); //set nickname
+	box.find('[ff="msgdate"]').html(msg.date); 		//set time
+	box.find('[ff="content"]').html(msg.content); 	//set content
+	box.addClass(msg.isSelf? 'am-comment-flip':'');	//displat on the right side
+	box.addClass(msg.isSelf? 'am-comment-warning':'am-comment-success');//color
+	box.css((msg.isSelf? 'margin-left':'margin-right'),"20%");//margin
 	
-	$("#ChatBox div:eq(0)").scrollTop(999999); 	//滚动条移动至最底部
+	$("#ChatBox div:eq(0)").scrollTop(999999); 	//scroll bar to the bottom
 	
 }
 
