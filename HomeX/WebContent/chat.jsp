@@ -43,6 +43,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <body>
+	<form method="post" action="search.result.jsp" method="post">
+		<input type="submit" value="Back" name="back"/>
+	</form>	
 	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
 		<div class="wrapper wrapper--w1070">
 			<div class="card card-7">
