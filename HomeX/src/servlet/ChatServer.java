@@ -21,8 +21,8 @@ public class ChatServer {
 	
 	
 	/**
-	 * 用户接入
-	 * @param session 可选
+	 * user connecton
+	 * @param session, selectable 
 	 */
 	@OnOpen
 	public void onOpen(Session session){
@@ -30,28 +30,28 @@ public class ChatServer {
 	}
 	
 	/**
-	 * 接收到来自用户的消息
+	 * receive message from user
 	 * @param message
 	 * @param session
 	 */
 	@OnMessage
 	public void onMessage(String message,Session session){
 
-		//把用户发来的消息解析为JSON对象
+		//parse the message sent by user, and convert them to JSONobject
 		JSONObject obj = JSONObject.fromObject(message);
-		//向JSON对象中添加发送时间
+		//add sending time into JSONobject
 		obj.put("date", df.format(new Date()));
-		//遍历聊天室中的所有会话
+		//go through all the messages in chat room
 		for(Session se : room){
-			//设置消息是否为自己的
+			//set if the message is sent by him/herself
 			obj.put("isSelf", se.equals(session));
-			//发送消息给远程用户
+			//send message to remote user 
 			se.getAsyncRemote().sendText(obj.toString());
 		}
 	}
 	
 	/**
-	 * 用户断开
+	 * user disconnection
 	 * @param session
 	 */
 	@OnClose
@@ -60,7 +60,7 @@ public class ChatServer {
 	}
 	
 	/**
-	 * 用户连接异常
+	 * User connect error
 	 * @param t
 	 */
 	@OnError
