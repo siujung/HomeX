@@ -100,10 +100,7 @@
 		</ul>
 		</div>
 		<a href="#0" class="cd-close">Close</a>
-			
-		<form method="post" action="chat.jsp" method="post">
-			<input type="submit" value="Contact me" name="contact me"/>
-		</form>	
+
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/velocity.min.js"></script>
