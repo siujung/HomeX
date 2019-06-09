@@ -86,30 +86,12 @@
 			</div>
 		</div>
 
-		<div id="info" class="cd-item-info">
-<div id="" style="overflow: auto; width: 340px; height: 320px;">
-			
-			
-			<h2 id="title">Title</h2>
-			<p id="id">id</p>
-			<p id="host">host</p>
-			<p id="tenant">tenant</p>
-			<p id="isAvailable">isAvailable</p>
-			<p id="constraint">constraint</p>
-			<p id="service">service</p>
-			<p id="address">address</p>
-			<p >address</p>
-			<p >address</p>
-			<p >address</p>
-			<p >address</p>
-			<p >address</p><p >address</p>
-			
-			<p >address</p>
-			<p >address</p>
-		</div>
+		<div class="cd-item-info">
+<div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
 		<ul class="cd-item-action">
 			<li><button class="register" method="POST" href="ReserveServlet">Register</button></li>
 		</ul>
+		</div>
 		<a href="#0" class="cd-close">Close</a>
 			
 		<form method="post" action="chat.jsp" method="post">

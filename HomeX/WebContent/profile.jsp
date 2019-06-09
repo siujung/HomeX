@@ -123,11 +123,14 @@
 			</div>
 		</div>
 
-		<div id="info" class="cd-item-info"></div>
+		<div  class="cd-item-info">
+		<div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
 		<ul class="cd-item-action">
 			<li><button class="register">Cancel</button></li>
 		</ul>
+		</div>
 		<a href="#0" class="cd-close">Close</a>
+		
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/velocity.min.js"></script>
