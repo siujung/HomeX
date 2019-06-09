@@ -128,7 +128,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    });
 	    
 	    
-	    var nickname = "name";
+	    //var nickname = "name";
+	    var nickname = null;
 		var socket = new WebSocket("ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
 	    //receive message from server
 	    socket.onmessage=function(ev){
