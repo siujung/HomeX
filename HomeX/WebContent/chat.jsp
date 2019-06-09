@@ -48,11 +48,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Role = "visitor";
 	} else
 		Role = cRole.getValue();
-	if (Role.equals("user")) {
-		response.sendRedirect("index.jsp");
-	} else if (Role.equals("administrator")) {
+		/*if (Role.equals("user")) {
+			response.sendRedirect("index.jsp");
+		} else if (Role.equals("administrator")) {
 		response.sendRedirect("admin.jsp");
-	}
+	}*/
 %>
 
 <script>
@@ -70,17 +70,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="header"></div>
 
 	<body>
-	<header>
-		<h1 align="center">Message</h1>
-	</header>
 
 		<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
 			<div class="wrapper wrapper--w1070">
 				<div class="card card-7">
 					<div class="card-body">
+						<h1 align="center">Message</h1>
 		<div id="main">
 		<div id="ChatBox" class="am-g am-g-fixed" >
-			<div class="am-u-lg-12" style="height:400px; border:2px solid #ffcc00; border-bottom-style:hidden; background:#fffff7;overflow-y:scroll;">
+			<div class="am-u-lg-12" style="height:400px; border:5px solid #ffcc00; border-style: dashed; border-bottom-style:hidden; background:#fffff7; overflow-y:scroll;">
 		
 			<ul id="chatContent" class="am-comments-list am-comments-list-flip">
 				<li id="msgtmp" class="am-comment" style="display:none;">
@@ -105,8 +103,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Send -->
 		<div id="EditBox" class="am-g am-g-fixed">
 		
-		<script type="text/plain" id="myEditor" style="width:100%;height:140px;"></script>
-		<button id="send" type="button" class="msg_send_btn" style="width:100px;border:1px solid #e3e197; border-radius:25px;background:#ffffdd; text-align: center;">SEND</button>
+		<script type="text/plain" id="myEditor" style="width:100%;height:140px"></script>
+		<button id="send" type="button" class="msg_send_btn" style="width:100px; border:1px solid #e3e197; border-radius:25px;background:#ffffdd; text-align: center">SEND</button>
 		</div>
 		</div>
 				</div>
@@ -120,10 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	initialContent:"Text Here...",
 	    	autoHeightEnabled:false,
 	    	toolbar:[
-	            'source | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
-	            'insertorderedlist insertunorderedlist | selectall cleardoc paragraph | fontfamily fontsize' ,
-	            '| justifyleft justifycenter justifyright justifyjustify |',
-	            'link unlink | emotion image video  | map'
+	            'undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+	            'selectall cleardoc paragraph | fontfamily fontsize' , '| justifyleft justifycenter justifyright justifyjustify |'
 	        ]
 	    });
 	    
@@ -153,9 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            um.focus();
 	        }
 	    
-	    });
-	    
-	   	    
+	    });	    
 	});
 	//nickname，date，isSelf，content
 	function addMessage(msg){
