@@ -90,6 +90,13 @@
 <div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
 		<ul class="cd-item-action">
 			<li><button class="register" method="POST" href="ReserveServlet">Register</button></li>
+			<li>		
+				<form action="chat.jsp" method="post">
+					<button value="Contact me" name="contact me" style="background-color: #F82F53; 
+					border-radius: 4px; color: #FFFFFF; text-align: center; width: 100px; height: 40px; 
+					margin: 5px; font-size: 16px; ">Contact me</button>
+				</form>
+			</li>
 		</ul>
 		</div>
 		<a href="#0" class="cd-close">Close</a>
