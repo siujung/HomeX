@@ -48,7 +48,7 @@
 
 <body style="background: #ffece0">
 
-	<div class="contact">hello this contact us</div>
+	<div class="contact">Contact Us 404</div>
 
 </body>
 </html>

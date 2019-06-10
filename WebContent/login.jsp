@@ -35,8 +35,10 @@
 		Role = cRole.getValue();
 	if (Role.equals("user")) {
 		response.sendRedirect("index.jsp");
+		return;
 	} else if (Role.equals("administrator")) {
 		response.sendRedirect("admin.jsp");
+		return;
 	}
 %>
 

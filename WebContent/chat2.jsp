@@ -30,6 +30,10 @@
 		Role = "visitor";
 	} else
 		Role = cRole.getValue();
+	if (Role.equals("visitor")) {
+		response.sendRedirect("index.jsp");
+		return;
+	}
 %>
 
 <script>

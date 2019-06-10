@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="cookie.Manage, java.net.*, file.Download"%>
+	import="cookie.*, java.net.*, file.*"%>
 <!DOCTYPE html>
 <html lang="en">
 

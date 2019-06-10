@@ -29,12 +29,14 @@
 
 	if (null == cRole) {
 		Manage.setCookie(request, response, "Role", "visitor");
-		response.sendRedirect("index.jsp");
 		Role = "visitor";
+		response.sendRedirect("index.jsp");
+		return;
 	} else
 		Role = cRole.getValue();
 	if (Role.equals("visitor") || Role.equals("user")) {
 		response.sendRedirect("index.jsp");
+		return;
 	}
 %>
 

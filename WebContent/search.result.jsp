@@ -27,6 +27,7 @@
 <%
 	Cookie cRole = Manage.getCookie(request, "Role");
 	String Role = null;
+
 	if (null == cRole) {
 		Manage.setCookie(request, response, "Role", "visitor");
 		Role = "visitor";
@@ -107,3 +108,4 @@
 	<!-- Resource jQuery -->
 </body>
 </html>
+
