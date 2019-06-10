@@ -101,26 +101,26 @@ public class AddHomeServlet extends HttpServlet {
         Map<Service, String> service = new HashMap<>();
         Map<Constraint, String> constraint = new HashMap<>();             
         
-        if(!pets.equals("")) {
+        if(pets != null) {
         	service.put(Service.pet, pets);
         }
-        if(!plants.equals("")) {
+        if(plants != null) {
         	service.put(Service.plant, plants);
         }
-        if(!clean.equals("")) {
+        if(clean != null) {
         	service.put(Service.clean, clean);
         }
         
-        if(!noSmoking.equals("")) {
+        if(noSmoking != null) {
         	constraint.put(Constraint.smoke, noSmoking);
         }
-        if(!noNoise.equals("")) {
+        if(noNoise != null) {
         	constraint.put(Constraint.noise, noNoise);
         }
-        if(!maxChildren.equals("")) {
+        if(maxChildren != null) {
         	constraint.put(Constraint.kid, maxChildren);
         }
-        if(!noPets.equals("")) {
+        if(noPets != null) {
         	constraint.put(Constraint.pet, noPets);
         }
         
