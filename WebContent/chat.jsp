@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*, java.net.*, cookie.*"
+<%@ page language="java" import="java.util.*, java.net.*, cookie.*, bean.*"
 	pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -109,14 +109,24 @@
 				<!-- Send -->
 				<div id="EditBox" class="am-g am-g-fixed">
 
-					<script type="text/plain" id="myEditor"
-						style="width:100%;height:140px"></script>
-					<button id="send" type="button" class="msg_send_btn"
+				<script type="text/plain" id="myEditor" style="width:100%;height:140px"></script>
+				<button id="send" type="button" class="msg_send_btn"
 						style="width: 100px; border: 1px solid #e3e197; border-radius: 25px; background: #ffffdd; text-align: center">SEND</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	$(function(){
+	
+			//adjust the size of chatbox to match input box
+			$("#ChatBox div:eq(0)").height($(this).height()-290);
+			$(window).resize(function(){
+				$("#ChatBox div:eq(0)").height($(this).height()-290);
+			});
+	</script>
+	
 
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/jump.js"></script>
@@ -134,8 +144,8 @@
 										'| justifyleft justifycenter justifyright justifyjustify |' ]
 							});
 
-			//var nickname = "name";
-			var nickname = null;
+			var nickname = "user "+Math.floor((Math.random()*9+1)*1000);//null;
+			//var nickname = "user"+Math.random();
 			var socket = new WebSocket(
 					"ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
 			//receive message from server
@@ -143,7 +153,6 @@
 				var obj = eval('(' + ev.data + ')');
 				addMessage(obj);
 			}
-
 			$("#send")
 					.click(
 							function() {
@@ -164,7 +173,6 @@
 									um.setContent('');
 									um.focus();
 								}
-
 							});
 		});
 		//nickname，date，isSelf，content
@@ -172,16 +180,17 @@
 			var box = $("#msgtmp").clone(); //copy template,and name it box
 			box.show(); //set box status as "show"
 			box.appendTo("#chatContent"); //add box in to chatting interface
-			box.find('[ff="nickname"]').html(msg.nickname); //set nickname
+			if(!msg.isSelf)
+				box.find('[ff="nickname"]').html(msg.nickname); //set nickname
+			else 
+				box.find('[ff="nickname"]').html("me");
 			box.find('[ff="msgdate"]').html(msg.date); //set time
 			box.find('[ff="content"]').html(msg.content); //set content
 			box.addClass(msg.isSelf ? 'am-comment-flip' : ''); //displat on the right side
 			box.addClass(msg.isSelf ? 'am-comment-warning'
 					: 'am-comment-success');//color
 			box.css((msg.isSelf ? 'margin-left' : 'margin-right'), "20%");//margin
-
 			$("#ChatBox div:eq(0)").scrollTop(999999); //scroll bar to the bottom
-
 		}
 	</script>
 
