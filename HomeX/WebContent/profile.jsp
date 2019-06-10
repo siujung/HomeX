@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="cookie.Manage, bean.*, java.net.*, control.Authentication"%>
+	import="cookie.*, bean.*, java.net.*, file.*, control.Authentication"%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -12,43 +12,52 @@
 	rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'
 	rel='stylesheet' type='text/css'>
-
-
 <link
 	href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
-
 <link rel="stylesheet" href="css/content.css">
 <script src="js/modernizr.js"></script>
-<!-- Modernizr -->
-
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-
-<%
-	Cookie cRole = Manage.getCookie(request, "Role");
-	String Role = null;
-
-	if (null == cRole) {
-		Manage.setCookie(request, response, "Role", "visitor");
-		Role = "visitor";
-	} else
-		Role = cRole.getValue();
-%>
-
-<script>
-	$(function() {
-		var Role = "<%=Role%>"
-		if (Role == "visitor")
-			$("#header").load("navbar.jsp");
-		else
-			$("#header").load("navbar.after.jsp");
-	});
-</script>
-
 </head>
 <div id="header"></div>
 
 <body>
+
+	<%
+		Cookie cDatabase = Manage.getCookie(request, "Database");
+
+		if (null == cDatabase) {
+			String basePath = Download.getBasePath(request) + "DAO/";
+			Download.getFile(basePath + "house.json", "house.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "user.json", "user.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "order.json", "order.json", System.getProperty("user.home") + "/HomeX");
+			Download.getFile(basePath + "message.json", "message.json", System.getProperty("user.home") + "/HomeX");
+			Manage.setCookie(request, response, "Database", "true");
+		}
+
+		Cookie cRole = Manage.getCookie(request, "Role");
+		String Role = null;
+
+		if (null == cRole) {
+			Manage.setCookie(request, response, "Role", "visitor");
+			Role = "visitor";
+		} else
+			Role = cRole.getValue();
+		if (Role.equals("visitor")) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
+	%>
+
+	<script>
+	$(function() {
+		var Role = "<%=Role%>"
+			if (Role == "visitor")
+				$("#header").load("navbar.jsp");
+			else
+				$("#header").load("navbar.after.jsp");
+		});
+	</script>
 	<!-- for each Quick view we going to give it a value which will be house name, from this value we can determine which house is offered by this user or registered -->
 	<div class="containers">
 		<header>
@@ -59,8 +68,9 @@
 			<%
 				Authentication authentication = (Authentication) session.getAttribute("authentication");
 
-				if (!authentication.isLoggedIn()) {
-					response.sendRedirect(request.getContextPath() + "/login.jsp");
+				if (authentication == null || !authentication.isLoggedIn()) {
+					response.sendRedirect("login.jsp");
+					return;
 				}
 				if (authentication.getUser().getHouse() != null && !authentication.getUser().getHouse().isEmpty()) {
 					for (Integer houseId : authentication.getUser().getHouse()) {
@@ -123,14 +133,14 @@
 			</div>
 		</div>
 
-		<div  class="cd-item-info">
-		<div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
-		<ul class="cd-item-action">
-			<li><button class="register">Cancel</button></li>
-		</ul>
+		<div class="cd-item-info">
+			<div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
+			<ul class="cd-item-action">
+				<li><button class="register">Cancel</button></li>
+			</ul>
 		</div>
 		<a href="#0" class="cd-close">Close</a>
-		
+
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/velocity.min.js"></script>
