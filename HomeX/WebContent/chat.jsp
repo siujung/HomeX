@@ -1,9 +1,8 @@
-<%@ page language="java" import="java.util.*, java.net.*, cookie.*"
+<%@ page language="java" import="java.util.*, java.net.*, cookie.*, bean.*"
 	pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -72,118 +71,102 @@
 <div id="header"></div>
 
 <body>
-
-	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
-		<div class="wrapper wrapper--w1070">
-			<div class="card card-7">
-				<div class="card-body">
-					<h1 align="center">Message</h1>
-					<div id="main">
-						<div id="ChatBox" class="am-g am-g-fixed">
-							<div class="am-u-lg-12"
-								style="height: 400px; border: 5px solid #ffcc00; border-style: dashed; border-bottom-style: hidden; background: #fffff7; overflow-y: scroll;">
-
-								<ul id="chatContent"
-									class="am-comments-list am-comments-list-flip">
-									<li id="msgtmp" class="am-comment" style="display: none;">
-										<a href=""> <img class="am-comment-avatar"
-											src="assets/images/other.jpg" alt="" />
-									</a>
-										<div class="am-comment-main">
-											<header class="am-comment-hd">
-											<div class="am-comment-meta">
-												<a ff="nickname" href="#link-to-user"
-													class="am-comment-author">Somebody</a>
-												<time ff="msgdate" datetime="" title="">2019-6-12
-												15:30</time>
-											</div>
-											</header>
-											<div ff="content" class="am-comment-bd">Content</div>
-										</div>
-									</li>
-								</ul>
+<div class="page-wrapper bg-color-1 p-t-15 p-b-120">
+	<h1 align="center">Message</h1>
+	<div id="main">
+		<div id="ChatBox" class="am-g am-g-fixed">
+			<div class="am-u-lg-12"	style="height: 400px; border: 5px solid #ffcc00; border-style: dashed; border-bottom-style: hidden; background: #fffff7; overflow-y: scroll;">
+				<ul id="chatContent" class="am-comments-list am-comments-list-flip">
+					<li id="msgtmp" class="am-comment" style="display: none;">
+						<a href=""> <img class="am-comment-avatar"src="assets/images/other.jpg" alt="" /></a>
+						<div class="am-comment-main">
+							<header class="am-comment-hd">
+							<div class="am-comment-meta">
+								<a ff="nickname" href="#link-to-user" class="am-comment-author">Somebody</a>
+								<time ff="msgdate" datetime="" title="">2019-6-12 15:30</time>
 							</div>
+							</header>
+							<div ff="content" class="am-comment-bd">Content</div>
 						</div>
-					</div>
-				</div>
-				<!-- Send -->
-				<div id="EditBox" class="am-g am-g-fixed">
-
-					<script type="text/plain" id="myEditor"
-						style="width:100%;height:140px"></script>
-					<button id="send" type="button" class="msg_send_btn"
-						style="width: 100px; border: 1px solid #e3e197; border-radius: 25px; background: #ffffdd; text-align: center">SEND</button>
-				</div>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
+	<!-- Send -->
+	<div id="EditBox" class="am-g am-g-fixed">
+	<script type="text/plain" id="myEditor" style="width:100%;height:140px"></script>
+	<button id="send" type="button" class="msg_send_btn" style="width: 100px; border: 1px solid #e3e197; border-radius: 25px; background: #ffffdd; text-align: center">SEND</button>
+	</div>
+</div>
+	
+<script type="text/javascript">
+$(function(){
 
-	<script src="js/jquery-2.1.1.js"></script>
-	<script src="js/jump.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			var um = UM
-					.getEditor(
-							'myEditor',
-							{
-								initialContent : "Text Here...",
-								autoHeightEnabled : false,
-								toolbar : [
-										'undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
-										'selectall cleardoc paragraph | fontfamily fontsize',
-										'| justifyleft justifycenter justifyright justifyjustify |' ]
-							});
-
-			//var nickname = "name";
-			var nickname = null;
-			var socket = new WebSocket(
-					"ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
-			//receive message from server
-			socket.onmessage = function(ev) {
-				var obj = eval('(' + ev.data + ')');
-				addMessage(obj);
-			}
-
-			$("#send")
-					.click(
-							function() {
-								if (!um.hasContents()) {
-									um.focus();
-									$('.edui-container').addClass(
-											'am-animation-shake');
-									setTimeout(
-											"$('.edui-container').removeClass('am-animation-shake')",
-											1000);
-								} else {
-									var txt = um.getContent();
-									var obj = JSON.stringify({
-										nickname : nickname,
-										content : txt
-									});
-									socket.send(obj);
-									um.setContent('');
-									um.focus();
-								}
-
-							});
+		//adjust the size of chatbox to match input box
+		$("#ChatBox div:eq(0)").height($(this).height()-290);
+		$(window).resize(function(){
+			$("#ChatBox div:eq(0)").height($(this).height()-290);
 		});
-		//nickname，date，isSelf，content
-		function addMessage(msg) {
-			var box = $("#msgtmp").clone(); //copy template,and name it box
-			box.show(); //set box status as "show"
-			box.appendTo("#chatContent"); //add box in to chatting interface
-			box.find('[ff="nickname"]').html(msg.nickname); //set nickname
-			box.find('[ff="msgdate"]').html(msg.date); //set time
-			box.find('[ff="content"]').html(msg.content); //set content
-			box.addClass(msg.isSelf ? 'am-comment-flip' : ''); //displat on the right side
-			box.addClass(msg.isSelf ? 'am-comment-warning'
-					: 'am-comment-success');//color
-			box.css((msg.isSelf ? 'margin-left' : 'margin-right'), "20%");//margin
+</script>
+	
 
-			$("#ChatBox div:eq(0)").scrollTop(999999); //scroll bar to the bottom
-
+<script type="text/javascript">
+	$(function() {
+		var um = UM.getEditor('myEditor',{
+			initialContent : "Text Here...",
+			autoHeightEnabled : false,
+			toolbar : [
+					'undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+					'selectall cleardoc paragraph | fontfamily fontsize',
+					'| justifyleft justifycenter justifyright justifyjustify |' ]
+		});
+	
+		var nickname = "user "+Math.floor((Math.random()*9+1)*1000);
+		var socket = new WebSocket(
+				"ws://${pageContext.request.getServerName()}:${pageContext.request.getServerPort()}${pageContext.request.contextPath}/websocket");
+		//receive message from server
+		socket.onmessage = function(ev) {
+			var obj = eval('(' + ev.data + ')');
+			addMessage(obj);
 		}
-	</script>
+		$("#send").click(function() {
+			if (!um.hasContents()) { //determine if input box is empty
+				um.focus();//obtain focus of input box
+				$('.edui-container').addClass('am-animation-shake');//add shake effect
+				setTimeout("$('.edui-container').removeClass('am-animation-shake')", 1000);
+			} else {
+				var txt = um.getContent();
+				var obj = JSON.stringify({
+					nickname : nickname,
+					content : txt
+				});
+				socket.send(obj);//send message
+				um.setContent('');//empty input box
+				um.focus();//obtain focus of input box
+			}
+		});
+	});
+	//nickname，date，isSelf，content
+	function addMessage(msg){
+	
+		var box = $("#msgtmp").clone(); 	//复制一份模板，取名为box
+		box.show();							//设置box状态为显示
+		box.appendTo("#chatContent");		//把box追加到聊天面板中
+		if(!msg.isSelf)
+			box.find('[ff="nickname"]').html(msg.nickname); //set nickname
+		else 
+			box.find('[ff="nickname"]').html("me");
+		box.find('[ff="msgdate"]').html(msg.date); 		//在box中设置时间
+		box.find('[ff="content"]').html(msg.content); 	//在box中设置内容
+		box.addClass(msg.isSelf? 'am-comment-flip':'');	//右侧显示
+		box.addClass(msg.isSelf? 'am-comment-warning':'am-comment-success');//颜色
+		box.css((msg.isSelf? 'margin-left':'margin-right'),"20%");//外边距
+		
+		$("#ChatBox div:eq(0)").scrollTop(999999); 	//滚动条移动至最底部
+		
+	}
+</script>
 
 </body>
 </html>
