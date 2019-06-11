@@ -176,14 +176,16 @@ public class House {
             if (!house.constraint.isEmpty())
                 html += "<p><b>Constraints</b></p>";
             for (Entry<Constraint, String> constraint : house.constraint.entrySet()) {
-                html += "<p>+" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
+                html += "<p>" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
             }
             if (!house.service.isEmpty())
                 html += "<p><b>Services</b></p>";
             for (Entry<Service, String> service : house.service.entrySet()) {
-                html += "<p>+" + service.getKey().toString() + " = " + service.getValue() + "</p>";
+                html += "<p>" + service.getKey().toString() + " = " + service.getValue() + "</p>";
             }
             html += "<p>ADDRESS = " + house.address + "</p>";
+
+            html += "<p>ID = " + house.id + "</p>";
 
             return html;
         }
@@ -195,15 +197,19 @@ public class House {
         if (!this.constraint.isEmpty())
             html += "<p><b>Constraints</b></p>";
         for (Entry<Constraint, String> constraint : this.constraint.entrySet()) {
-            html += "<p>+" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
+            html += "<p>" + constraint.getKey().toString() + " = " + constraint.getValue() + "</p>";
         }
         if (!this.service.isEmpty())
             html += "<p><b>Services</b></p>";
         for (Entry<Service, String> service : this.service.entrySet()) {
-            html += "<p>+" + service.getKey().toString() + " = " + service.getValue() + "</p>";
+            html += "<p>" + service.getKey().toString() + " = " + service.getValue() + "</p>";
         }
         html += "<p>ADDRESS = " + this.address + "</p>";
-
+        html += "<p>ID = " + this.id + "</p>";
+        
+        //html += "<p><input type=\"hidden\" id=\"houseId\" name=\"houseId\" value=\""+this.getId()+"\"></p>";
+        //html += "<p><input type=\"text\" value=\""+this.id+"\" id=\"houseId\" name=\"houseId\" readonly></p>";
+        //System.out.println(html);
         return html;
     }
 
