@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -12,21 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Order;
 import bean.User;
 import control.Administrator;
 import control.Authentication;
 
 /**
- * Servlet implementation class DeleteHouseServlet
+ * Servlet implementation class DeleteReservation
  */
-@WebServlet("/DeleteHouseServlet")
-public class DeleteHouseServlet extends HttpServlet {
+@WebServlet("/DeleteReservation")
+public class DeleteReservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteHouseServlet() {
+    public DeleteReservationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,18 +38,7 @@ public class DeleteHouseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		HttpSession session = request.getSession();
-        Authentication authentication = (Authentication)session.getAttribute("authentication");
-
-        if(!authentication.isLoggedIn()){
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
-        }
-
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
-        dispatcher.forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -56,7 +47,7 @@ public class DeleteHouseServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-        HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
         String errorMessage;
         boolean hasError = true;
         
@@ -70,18 +61,23 @@ public class DeleteHouseServlet extends HttpServlet {
    
         User user = authentication.getUser();
         
-        Set<Integer> house = user.getHouse();
-        Iterator<Integer> itr = house.iterator();
+        Set<Integer> order = user.getOrder();
+        Iterator<Integer> itr = order.iterator();
         
 		String houseId = (String)request.getParameter("houseId");
         int id = Integer.parseInt(houseId);
 
         while(itr.hasNext()) {
-        	if(itr.next() == id) {
-        		itr.remove();
-        		hasError = false;
-        		break;
-        	}
+        	try {
+				if(Order.get(itr.next()).getHouse() == id) {
+					itr.remove();
+					hasError = false;
+					break;
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         if(!administrator.deleteHouse(id)) { //if deletion unsuccessful
@@ -91,14 +87,13 @@ public class DeleteHouseServlet extends HttpServlet {
         if(hasError) { //if there's an error
         	errorMessage = "Error occured while deleting house!\n";
         	request.setAttribute("errorMessage", errorMessage);
-        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
-        	dispatcher.include(request, response);
+        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("profile.jsp");
+        	dispatcher.forward(request, response);
         }
         else {
         	session.setAttribute("administrator", administrator);
-        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/profile.jsp");
-        	dispatcher.include(request, response);
-        	
+        	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("profile.jsp");
+        	dispatcher.forward(request, response);
         }
 	}
 
