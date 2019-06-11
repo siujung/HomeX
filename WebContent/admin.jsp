@@ -127,6 +127,28 @@
 		</div>
 		<a href="#0" class="cd-close">Close</a>
 	</div>
+	<br>
+
+<div style="width:300px; height:100px;">
+				<div class="card-body" >
+				<form method="POST" action="DeleteHouseServlet">
+				Input house Id you wish to delete:
+					<input type="text" name="houseId" id="houseId">
+					<input type="submit" value="submit">
+					</form>
+				</div>
+
+	<br>
+
+				<div class="card-body">
+				<form method="POST" action="DeleteReservationServlet">
+				Input order Id you wish to delete:
+					<input type="text" name="orderId" id="orderId">
+					<input type="submit" value="submit">
+					</form>
+				</div>
+</div>
+	
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/velocity.min.js"></script>
 	<script src="js/content.js"></script>

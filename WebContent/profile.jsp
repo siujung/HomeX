@@ -78,6 +78,7 @@
 
 						out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + house.getHTML()
 								+ "\"><a class=\"cd-trigger\">" + house.getTitle() + "</a></li>");
+						System.out.println(house.getHTML());
 					}
 				}
 			%>
@@ -98,22 +99,40 @@
 
 						out.println("<li class=\"cd-item\"><img src=\"img/item-1.jpg\" alt=\"" + order.getHTML()
 								+ "\"><a class=\"cd-trigger\">" + order.getTitle() + "</a></li>");
+						//System.out.println(order.getHTML());
 					}
 				}
 			%>
 		</ul>
 	</div>
-	<div class="page-wrapper bg-color-1 p-t-395 p-b-120">
-		<div class="wrapper wrapper--w1070">
+	
 			<div class="card card-7">
 				<div class="card-body">
 					<a class="btn-submit" type="submit" href="new.property.jsp">New
 						Housing</a>
 				</div>
 			</div>
-		</div>
-	</div>
+		<br>
 
+<div style="width:300px; height:100px;">
+				<div class="card-body" >
+				<form method="POST" action="DeleteHouseServlet">
+				Input house Id you wish to delete:
+					<input type="text" name="houseId" id="houseId">
+					<input type="submit" value="submit">
+					</form>
+				</div>
+
+	<br>
+
+				<div class="card-body">
+				<form method="POST" action="DeleteReservationServlet">
+				Input order Id you wish to delete:
+					<input type="text" name="orderId" id="orderId">
+					<input type="submit" value="submit">
+					</form>
+				</div>
+</div>
 
 	<!-- this code will check Quick view value and generate all pictures related to that house name-->
 	<!-- inside this div is the pop up window to view the house with its details and buttons-->
@@ -132,13 +151,14 @@
 				</ul>
 			</div>
 		</div>
-
-		<div class="cd-item-info">
-			<div id="info" style="overflow: auto; width: 340px; height: 320px;"></div>
-			<ul class="cd-item-action">
-				<li><button class="register">Cancel</button></li>
-			</ul>
-		</div>
+		
+			<div class="cd-item-info">
+				<div id="info" style="overflow: auto; width: 340px; height: 320px;">
+				</div>
+				<ul class="cd-item-action">
+					<li><input type="submit" class="register" value="Cancel"></li>
+				</ul>
+			</div>
 		<a href="#0" class="cd-close">Close</a>
 
 	</div>
